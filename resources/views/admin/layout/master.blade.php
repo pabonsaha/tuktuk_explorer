@@ -7,9 +7,8 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>
-        eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template
-    </title>
+    <link rel="icon" type="image/png" href="{{ asset('logo/favicon.ico') }}">
+    <title>Tuk Tuk</title>
 
     @vite(['resources/admin/js/index.js', 'resources/admin/css/style.css'])
     @stack('style')

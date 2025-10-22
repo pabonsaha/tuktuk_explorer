@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="border-t border-gray-200 px-6 py-4 dark:border-gray-800">
-                        {{ $banners->links() }}
+                        {{ $banners->links('admin.vendor.pagination.tailadmin') }}
                     </div>
                 </div>
             </div>

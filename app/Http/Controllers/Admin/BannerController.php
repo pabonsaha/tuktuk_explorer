@@ -15,7 +15,7 @@ class BannerController extends Controller
 
     public function index()
     {
-        $banners = Banner::paginate(1);
+        $banners = Banner::paginate(10);
         return view('admin.banner.index', compact('banners'));
     }
 
@@ -54,7 +54,7 @@ class BannerController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
             'is_active' => 'boolean',
         ]);
 
