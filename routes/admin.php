@@ -19,8 +19,12 @@ Route::prefix('banner')->name('banner.')->group(function () {
 
 Route::prefix('tours')->name('tours.')->group(function () {
     Route::get('index', [TourController::class, 'index'])->name('index');
+    Route::get('create', [TourController::class, 'create'])->name('create');
     Route::post('store', [TourController::class, 'store'])->name('store');
     Route::get('{id}/edit', [TourController::class, 'edit'])->name('edit');
-    Route::put('{id}/update', [TourController::class, 'update'])->name('update');
+    Route::patch('{id}/update', [TourController::class, 'update'])->name('update');
+
     Route::post('{id}/delete', [TourController::class, 'destroy'])->name('delete');
+    Route::post('delete', [TourController::class, 'delete'])->name('delete');
+    Route::post('/admin/tours/{tour}/toggle', [TourController::class, 'toggleStatus'])->name('toggle');
 });

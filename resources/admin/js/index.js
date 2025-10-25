@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
+import Quill from 'quill';
 
 // make it global so Blade scripts can access it
 window.toastr = toastr;

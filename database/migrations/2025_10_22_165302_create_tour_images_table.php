@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Tour::class);
             $table->string('image');
+            $table->tinyInteger('is_active')->default(1)->comment('1=active,0=inactive');
             $table->timestamps();
         });
     }

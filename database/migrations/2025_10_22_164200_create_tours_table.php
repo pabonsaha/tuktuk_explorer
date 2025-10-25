@@ -12,11 +12,18 @@ return new class extends Migration {
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->text('cancellation_policy')->nullable();
-            $table->json('highlights')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('tour_duration')->nullable();
+            $table->double('starting_price', 2)->default(0);
+            $table->integer('num_of_people')->default(0);
+            $table->json('specifications')->nullable();
+            $table->json('requirements')->nullable();
+            $table->json('tour_highlights')->nullable();
+            $table->json('meeting_point')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

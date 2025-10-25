@@ -6,11 +6,11 @@
         <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
             <div class="px-5 py-4 sm:px-6 sm:py-5 flex justify-between items-center">
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90">Tour List</h3>
-                <button
-                    class="px-4 py-3 text-sm font-medium text-white rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
+                <a href="{{route('admin.tours.create')}}"
+                   class="px-4 py-3 text-sm font-medium text-white rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
                 >
                     New Tour +
-                </button>
+                </a>
             </div>
 
             <div class="border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
@@ -40,8 +40,8 @@
                                     </td>
 
                                     <td class="px-5 py-3 whitespace-nowrap sm:px-6">
-                                        @if ($tour->image)
-                                            <img src="{{ getFilePath($tour->image) }}" alt="Banner Image"
+                                        @if ($tour->thumbnail)
+                                            <img src="{{ getFilePath($tour->thumbnail) }}" alt="Banner Image"
                                                  class="h-12 w-20 object-cover rounded-md">
                                         @else
                                             <span class="text-gray-400">No Image</span>
@@ -49,29 +49,44 @@
                                     </td>
 
                                     <td class="px-5 py-3 whitespace-nowrap sm:px-6">
-                                        @if ($tour->is_active)
-                                            <span
-                                                class="bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400 px-3 py-1 rounded-full text-xs font-medium">
-                                            Active
-                                        </span>
-                                        @else
-                                            <span
-                                                class="bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 px-3 py-1 rounded-full text-xs font-medium">
-                                            Inactive
-                                        </span>
-                                        @endif
+
+                                        <div x-data="toggleSwitch({{ $tour->id }}, {{ $tour->is_active ? 'true' : 'false' }}, '{{ route('admin.tours.toggle', $tour->id) }}')">
+
+                                            <label class="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400">
+                                                <div class="relative">
+                                                    <input type="checkbox"
+                                                           class="sr-only"
+                                                           :checked="switcherToggle"
+                                                           @change="toggleStatus"
+                                                           :disabled="loading"
+                                                    />
+                                                    <div
+                                                        class="block h-6 w-11 rounded-full transition"
+                                                        :class="switcherToggle ? 'bg-green-500 dark:bg-green-600' : 'bg-gray-300 dark:bg-gray-700'"
+                                                    ></div>
+                                                    <div
+                                                        class="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-300 ease-in-out"
+                                                        :class="switcherToggle ? 'translate-x-full' : 'translate-x-0'"
+                                                    ></div>
+                                                </div>
+
+                                                <span x-text="switcherToggle ? 'Active' : 'Inactive'"></span>
+                                            </label>
+
+                                        </div>
+
                                     </td>
 
                                     <td class="px-5 py-3 whitespace-nowrap sm:px-6 text-center">
                                         <div class="flex justify-center gap-2">
-                                            <button
+                                            <a
                                                 type="button"
                                                 class="text-blue-500 hover:text-blue-700 font-medium edit-btn"
-                                                data-id="{{ $tour->id }}"
+                                                href="{{route('admin.tours.edit',$tour->id)}}"
                                             >
                                                 Edit
-                                            </button>
-                                            <form action="{{route('admin.tour.delete',$tour->id)}}"
+                                            </a>
+                                            <form action="{{route('admin.tours.delete',$tour->id)}}"
                                                   class="delete-form" method="POST">
                                                 @csrf
                                                 <button type="submit"
@@ -94,7 +109,7 @@
                     </div>
 
                     <div class="border-t border-gray-200 px-6 py-4 dark:border-gray-800">
-                        {{ $banners->links('admin.vendor.pagination.tailadmin') }}
+                        {{ $tours->links('admin.vendor.pagination.tailadmin') }}
                     </div>
                 </div>
             </div>
@@ -104,4 +119,44 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('toggleSwitch', (id, isActive, url) => ({
+                switcherToggle: isActive,
+                loading: false,
+
+                async toggleStatus() {
+                    this.loading = true;
+                    this.switcherToggle = !this.switcherToggle;
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({
+                                is_active: this.switcherToggle
+                            })
+                        });
+
+                        if (!response.ok) throw new Error('Request failed');
+                        const data = await response.json();
+
+                        toastr.success(data.message || 'Status updated successfully!');
+                    } catch (error) {
+                        this.switcherToggle = !this.switcherToggle; // revert on error
+                        toastr.error('Error updating status');
+                    } finally {
+                        this.loading = false;
+                    }
+                }
+            }))
+        });
+    </script>
+@endpush
 
