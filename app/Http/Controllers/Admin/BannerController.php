@@ -64,6 +64,7 @@ class BannerController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $this->uploadFile($request->file('image'), 'banners');
+            $this->deleteFile($banner->image);
             $banner->image = $path;
         }
 

@@ -6,8 +6,8 @@
         x-init="initQuill(); loadData( {{ $tour->toJson() }} );"
         class=" mx-auto p-6 shadow-2xl space-y-8 rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-800/50"
     >
-        <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white border-b pb-4">Edit Tour (<span
-                x-text="title"></span>)</h2>
+        <h2 class="text-base font-medium text-gray-900 dark:text-white border-b pb-4">Edit Tour - <span
+                x-text="title"></span></h2>
 
         <!-- Success Message Box -->
         <template x-if="isSuccess">

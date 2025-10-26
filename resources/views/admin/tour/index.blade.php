@@ -77,25 +77,79 @@
 
                                     </td>
 
-                                    <td class="px-5 py-3 whitespace-nowrap sm:px-6 text-center">
-                                        <div class="flex justify-center gap-2">
-                                            <a
-                                                type="button"
-                                                class="text-blue-500 hover:text-blue-700 font-medium edit-btn"
-                                                href="{{route('admin.tours.edit',$tour->id)}}"
+                                    <td class="px-5 py-3 sm:px-6 text-center">
+                                        <div x-data="{ open: false }" class="relative inline-block text-left">
+                                            <!-- Dropdown Trigger -->
+                                            <button
+                                                @click="open = !open"
+                                                class="inline-flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
                                             >
-                                                Edit
-                                            </a>
-                                            <form action="{{route('admin.tours.delete',$tour->id)}}"
-                                                  class="delete-form" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                        class="text-red-500 hover:text-red-700 font-medium">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                                Actions
+                                                <svg class="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
+                                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                                                </svg>
+                                            </button>
+
+                                            <!-- Dropdown Menu -->
+                                            <div
+                                                x-show="open"
+                                                @click.outside="open = false"
+                                                x-transition
+                                                class="absolute right-0 z-50 w-44 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-900 dark:border-gray-700"
+                                            >
+                                                <div class="py-1">
+                                                    <!-- Add Hours -->
+                                                    <a href="{{ route('admin.tour.hour.index', $tour->id) }}"
+                                                       class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-orange-500" fill="none"
+                                                             viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                  d="M12 4v16m8-8H4"/>
+                                                        </svg>
+                                                        Add Hours
+                                                    </a>
+
+                                                    <!-- Add Additional -->
+                                                    <a href="{{ route('admin.tour.additional.index', $tour->id) }}"
+                                                       class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-500" fill="none"
+                                                             viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                  d="M5 13l4 4L19 7"/>
+                                                        </svg>
+                                                        Add Additional
+                                                    </a>
+
+                                                    <!-- Edit -->
+                                                    <a href="{{ route('admin.tours.edit', $tour->id) }}"
+                                                       class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-blue-500" fill="none"
+                                                             viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                  d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5m-5-9l6 6M13 3l8 8"/>
+                                                        </svg>
+                                                        Edit
+                                                    </a>
+
+                                                    <!-- Delete -->
+                                                    <form action="{{ route('admin.tours.delete', $tour->id) }}" method="POST" class="delete-form">
+                                                        @csrf
+                                                        <button type="submit"
+                                                                class="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-red-500 dark:hover:bg-gray-800">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none"
+                                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                      d="M19 7l-.867 12.142A2 2 0 0 1 16.138 21H7.862a2 2 0 0 1-1.995-1.858L5 7m5-4h4a2 2 0 0 1 2 2v2H8V5a2 2 0 0 1 2-2z"/>
+                                                            </svg>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>
