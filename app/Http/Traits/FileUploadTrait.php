@@ -35,7 +35,7 @@ trait FileUploadTrait
         $filePath = "";
         $rootDir = 'uploads/';
         if ($file) {
-            $processedImage = Image::read($file)->toWebp(90);
+            $processedImage = Image::read($file)->toWebp(100);
             $fileName = $rootDir . $folder . '/' . uniqid() . '.webp';
             Storage::put($fileName, (string)$processedImage);
         }
