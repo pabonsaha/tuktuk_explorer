@@ -5,7 +5,11 @@ export default {
         './resources/**/*.vue',
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                primary: 'var(--color-primary)',
+            },
+        },
     },
     plugins: [require('@tailwindcss/forms')],
 }

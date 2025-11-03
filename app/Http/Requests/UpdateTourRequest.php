@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTourRequest extends FormRequest
 {
@@ -20,32 +21,36 @@ class UpdateTourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'             => ['required', 'string', 'max:255'],
-            'description'       => ['required', 'string'],
-            'thumbnail'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], // Max 2MB
-            'tour_duration'     => ['required', 'string', 'max:100'],
-            'starting_price'    => ['required', 'numeric', 'min:0'],
-            'num_of_people'     => ['required', 'integer', 'min:1'],
-            'note'              => ['nullable', 'string'],
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('tours', 'title')->ignore($this->route('id'))
+            ],
 
-            // Dynamic List Fields (JSON Fields in the Blade template)
-            'specifications'        => ['nullable', 'array'],
-            'specifications.*'      => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'location' => ['required', 'string'],
+            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'tour_duration' => ['required', 'string', 'max:100'],
+            'starting_price' => ['required', 'numeric', 'min:0'],
+            'num_of_people' => ['required', 'integer', 'min:1'],
+            'note' => ['nullable', 'string'],
 
-            'requirements'          => ['nullable', 'array'],
-            'requirements.*'        => ['required', 'string', 'max:255'],
+            'specifications' => ['nullable', 'array'],
+            'specifications.*' => ['required', 'string', 'max:255'],
 
-            'tour_highlights'       => ['nullable', 'array'],
-            'tour_highlights.*'     => ['required', 'string', 'max:255'],
+            'requirements' => ['nullable', 'array'],
+            'requirements.*' => ['required', 'string', 'max:255'],
 
-            // Meeting Point (Array of objects)
-            'meeting_point'         => ['nullable', 'array'],
-            'meeting_point.*.name'  => ['required', 'string', 'max:255'],
-            'meeting_point.*.link'  => ['nullable', 'url', 'max:500'], // Assuming link is a URL
+            'tour_highlights' => ['nullable', 'array'],
+            'tour_highlights.*' => ['required', 'string', 'max:255'],
 
-            // Dynamic Tour Images (Multiple Files)
-            'images'                => ['nullable', 'array'],
-            'images.*'              => ['image', 'required','mimes:jpeg,png,jpg,webp', 'max:2048'], // Each image is max 2MB
+            'meeting_point' => ['nullable', 'array'],
+            'meeting_point.*.name' => ['required', 'string', 'max:255'],
+            'meeting_point.*.link' => ['required', 'max:500'],
+
+            'images' => ['nullable', 'array'],
+            'images.*' => ['image', 'required', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         ];
     }
 

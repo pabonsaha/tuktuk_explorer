@@ -1,10 +1,10 @@
-<header class="absolute top-0 left-0 w-full z-50 text-white">
+<header class="absolute top-0 left-0 w-full z-50 @if(Route::is('home')) text-white @endif">
     <div class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <div class="flex items-center gap-2">
                     <div class="w-10 h-10 rounded">
-                        <img alt="icon" src="{{asset('/logo/logo.ico')}}" />
+                        <img alt="icon" src="{{asset('/logo/logo.ico')}}"/>
                     </div>
                     <span class="text-xl font-bold">TukTuk Explorer</span>
                 </div>
@@ -17,8 +17,7 @@
                 </nav>
             </div>
             <div class="flex items-center gap-4">
-                <span class="hidden md:block">EN / USD</span>
-                <button class=" bg-primary px-6 py-2 rounded-full transition">
+                <button class=" bg-primary px-6 py-2 rounded-full transition text-white" >
                     Book Now
                 </button>
             </div>

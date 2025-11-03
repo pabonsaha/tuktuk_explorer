@@ -11,6 +11,7 @@ use App\Models\TourImages;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class TourController extends Controller
 {
@@ -34,9 +35,11 @@ class TourController extends Controller
             DB::beginTransaction();
             $tour = new Tour();
             $tour->title = $request->title;
+            $tour->slug = Str::slug($request->title);
             $tour->description = $request->description;
             $tour->tour_duration = $request->tour_duration;
             $tour->starting_price = $request->starting_price;
+            $tour->location = $request->location;
             $tour->num_of_people = $request->num_of_people;
             $tour->note = $request->note;
 
@@ -101,6 +104,7 @@ class TourController extends Controller
             DB::beginTransaction();
             $tour = Tour::find($id);
             $tour->title = $request->title;
+            $tour->slug = Str::slug($request->title);
             $tour->description = $request->description;
             $tour->tour_duration = $request->tour_duration;
             $tour->starting_price = $request->starting_price;

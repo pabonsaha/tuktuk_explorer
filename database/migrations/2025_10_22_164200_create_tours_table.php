@@ -13,11 +13,13 @@ return new class extends Migration {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->string('slug')->nullable();
             $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('tour_duration')->nullable();
             $table->double('starting_price', 2)->default(0);
             $table->integer('num_of_people')->default(0);
+            $table->string('location')->nullable();
             $table->json('specifications')->nullable();
             $table->json('requirements')->nullable();
             $table->json('tour_highlights')->nullable();

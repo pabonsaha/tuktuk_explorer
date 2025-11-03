@@ -48,6 +48,15 @@
                 </template>
             </div>
 
+            <div class="mt-4">
+                <label class="text-base font-medium text-gray-800 dark:text-white/90">Location</label>
+                <input type="text" name="location" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                       placeholder="e.g. 3 Days, 2 Nights" :class="{'!border-red-500': errors.location}">
+                <template x-if="errors.location">
+                    <p class="text-sm text-red-500 mt-1" x-text="errors.location[0]"></p>
+                </template>
+            </div>
+
             {{-- Tour Duration --}}
             <div class="mt-4">
                 <label class="text-base font-medium text-gray-800 dark:text-white/90">Tour Duration</label>
@@ -57,6 +66,8 @@
                     <p class="text-sm text-red-500 mt-1" x-text="errors.tour_duration[0]"></p>
                 </template>
             </div>
+
+
 
             {{-- Starting Price --}}
             <div  class="mt-4">

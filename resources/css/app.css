@@ -2,21 +2,7 @@
 
 @import "tailwindcss";
 
-:root {
-    --font-sans: 'Poppins', sans-serif;
-
-    /* your custom color */
+@theme {
     --color-primary: #FD4621;
-}
-
-@layer components {
-    .bg-primary {
-        background-color: var(--color-primary);
-    }
-
-}
-@layer components {
-    .color-primary {
-        color: var(--color-primary);
-    }
+    --font-sans: 'Poppins', sans-serif;
 }

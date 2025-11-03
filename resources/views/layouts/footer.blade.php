@@ -3,15 +3,15 @@
         <div class="grid md:grid-cols-5 gap-8 mb-8">
             <div>
                 <div class="flex items-center gap-2 mb-4">
-                    <div class="w-8 h-8 bg-orange-500 rounded"></div>
-                    <span class="text-xl font-bold">Logo</span>
+                    <div class="w-8 h-8 bg-orange-500 rounded"><img  src="{{asset('/logo/logo.ico')}}"></div>
+                    <span class="text-xl font-bold">TukTuk Explorer</span>
                 </div>
                 <p class="text-gray-400 text-sm mb-4">
                     Need any help? Call our customer support team 24/7 at:
                 </p>
                 <div class="flex items-center gap-2 text-lg font-semibold">
                     <span>📞</span>
-                    <span>+1 (123) 456-789</span>
+                    <span>+351 920 204 443</span>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start gap-2">
                         <span>📧</span>
-                        <span>info@travel.com</span>
+                        <span>tuktuk.lisbon3400@gmail.com</span>
                     </li>
                     <li class="flex items-start gap-2">
                         <span>📱</span>
@@ -68,16 +68,16 @@
                         <span>🐦</span>
                         <span>Twitter</span>
                     </li>
-                    <li class="flex items-start gap-2">
-                        <span>💼</span>
-                        <span>Youtube</span>
-                    </li>
+{{--                    <li class="flex items-start gap-2">--}}
+{{--                        <span>💼</span>--}}
+{{--                        <span>Youtube</span>--}}
+{{--                    </li>--}}
                 </ul>
             </div>
         </div>
 
         <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-            <p>© 2025 Travel. All rights reserved.</p>
+            <p>© {{date('Y')}} Travel. All rights reserved.</p>
             <div class="flex gap-4 mt-4 md:mt-0">
                 <span>EN</span>
                 <span>•</span>

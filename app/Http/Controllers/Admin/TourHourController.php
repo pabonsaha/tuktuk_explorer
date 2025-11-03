@@ -94,7 +94,7 @@ class TourHourController extends Controller
         session()->flash('success', 'Tour Hour updated successfully!');
         return response()->json([
             'success' => true,
-            'message' => 'Banner Updated Successfully',
+            'message' => 'Tour Hour Updated Successfully',
         ]);
     }
 

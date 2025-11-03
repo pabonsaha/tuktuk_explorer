@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts.master')
 
 @push('styles')
     <style>
@@ -21,23 +21,17 @@
             opacity: 1;
         }
 
-        .tour-slider {
-            overflow: hidden;
+
+        .banner-slide.active img {
+            transition: transform 6s ease-out;
+            transform: scale(1.1);
         }
 
-        .tour-track {
-            display: flex;
-            gap: 1.5rem;
-
-        }
-
-        @keyframes slideLeft {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+        .banner-slide img {
+            transform-origin: center;
+            will-change: transform;
+            transition: transform 2s ease-in;
+            transform: scale(1);
         }
     </style>
 @endpush
@@ -52,11 +46,16 @@
             <div class="banner-slide relative"
                  :class="{ 'active': currentSlide === index }">
 
-                <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
-                <img :src="`/storage/${slide.image}`" alt="Banner" class="w-full h-full object-cover">
+                <img :src="`/storage/${slide.image}`"
+                     alt="Banner"
+                     :class="['w-full h-full object-cover']">
 
-                <!-- Text Bottom Left -->
-                <div class="absolute bottom-16 left-10 text-white max-w-xl">
+                <div class="absolute inset-0 pointer-events-none z-10">
+                    <div class="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/80 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+
+                <div class="absolute bottom-16 left-10 text-white max-w-xl z-20">
                     <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-3"
                         x-text="slide.title">
                     </h1>
@@ -191,14 +190,14 @@
                             </div>
 
                             <!-- Short Description -->
-                            <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">
-                                {!! $tour->description !!}
+                            <p class="text-gray-600 text-sm leading-relaxed line-clamp-5">
+                                {!! strip_tags($tour->description) !!}
                             </p>
 
                             <!-- Buttons -->
                             <div class="grid grid-cols-1 gap-3 mt-2">
-                                <a href=""
-                                   class="bg-white border color-primary text-center font-semibold py-3 rounded transition">
+                                <a href="{{route('tour.details',$tour->slug)}}"
+                                   class="bg-white border border-primary text-primary text-center font-semibold py-3 rounded transition">
                                     BOOK TOUR NOW
                                 </a>
 
@@ -367,18 +366,54 @@
             </div>
 
             <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
-                <div class="h-48 bg-gray-300 rounded-lg"></div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-1.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-2.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-3.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-4.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-5.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-6.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-7.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-8.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-9.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-10.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-11.png')}}">
+                </div>
+                <div class="h-48 rounded-lg"><img alt="img"
+                                                  class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                                  src="{{asset('/frontend-assets/images/community/image-12.png')}}">
+                </div>
             </div>
         </div>
     </section>
