@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,11 @@ Route::name('tour.')->prefix('tour')->group(function () {
     Route::get('{slug}', [TourController::class, 'details'])->name('details');
 });
 
+Route::name('pay.')->prefix('pay')->group(function () {
+    Route::post('/stripe', [PaymentController::class, 'payStripe'])->name('stripe');
+    Route::get('/success', [PaymentController::class, 'successPayment'])->name('success');
+    Route::get('/error', [PaymentController::class, 'errorPayment'])->name('error');
+});
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';

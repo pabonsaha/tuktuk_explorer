@@ -294,7 +294,7 @@
                             <!-- Sidebar -->
                             <div class="lg:col-span-1">
                                 <div class="sticky top-4" x-data="priceForm()"
-                                     x-init="setHour({{@$tour->hours[0]}});setAdditionalData({{$tour->additional}})">
+                                     x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});">
                                     <!-- Booking Card -->
                                     <!-- Tour Options Section -->
                                     <div class="max-w-md mx-auto p-4 space-y-4 border border-gray-400 rounded-xl">
@@ -592,26 +592,45 @@
                                                     </button>
 
                                                     <!-- Pay Button (bigger) -->
+                                                    <!-- Pay Button (bigger) -->
                                                     <button @click="submitPersonalInfoFrom()"
+                                                            :disabled="isSubmitting"
                                                             type="button"
                                                             class="flex items-center gap-2 w-2/3 justify-around bg-green-700
-                                                               hover:bg-green-600 text-white font-medium py-3 rounded-lg transition duration-150">
-                                                        <span>
-                                                            €<span x-text="getTotalPrice()"></span>
-                                                        </span>
-                                                        <span class="flex justify-center items-center gap-2">
+               hover:bg-green-600 text-white font-medium py-3 rounded-lg transition duration-150
+               disabled:bg-gray-400 disabled:cursor-not-allowed">
 
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                 viewBox="0 0 24 24"
-                                                                 stroke-width="1.5" stroke="currentColor"
-                                                                 class="w-5 h-5">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                      d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25
-                                                                    2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25
-                                                                    2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/>
+                                                        <!-- Show loading spinner when submitting -->
+                                                        <template x-if="isSubmitting">
+                                                            <svg class="animate-spin h-5 w-5 text-white"
+                                                                 xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24">
+                                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                                        stroke="currentColor" stroke-width="4"></circle>
+                                                                <path class="opacity-75" fill="currentColor"
+                                                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                             </svg>
-                                                            Pay →
-                                                        </span>
+                                                        </template>
+
+                                                        <!-- Show price when not submitting -->
+                                                        <span x-show="!isSubmitting">
+        €<span x-text="getTotalPrice()"></span>
+    </span>
+
+                                                        <span class="flex justify-center items-center gap-2">
+        <template x-if="!isSubmitting">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5" stroke="currentColor"
+                 class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25
+                            2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25
+                            2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/>
+            </svg>
+        </template>
+        <span x-text="isSubmitting ? 'Processing...' : 'Pay →'"></span>
+    </span>
                                                     </button>
                                                 </div>
 
@@ -642,10 +661,10 @@
             return {
                 currentView: 'priceView',
                 selectedhour: null,
-
+                isSubmitting: false, // Add loading state
                 seletedPassenger: 1,
                 totalPassengerPrice: null,
-
+                tour: null,
                 additioanls: [],
                 selectedDate: '',
                 selectedTime: '',
@@ -669,8 +688,9 @@
                 priceFormErrors: [],
                 personalInformationError: [],
 
-                setAdditionalData(data) {
-                    data.forEach(extra => {
+                setTour(data) {
+                    this.tour = data;
+                    data.additional.forEach(extra => {
                         this.additioanls.push({
                             title: extra.title,
                             price: extra.price,
@@ -680,7 +700,6 @@
                 },
                 setHour(data) {
                     this.selectedhour = data;
-
                 },
                 getPerPassengerPrice() {
                     this.totalPassengerPrice = Math.ceil(this.seletedPassenger / this.selectedhour?.number_of_people) * this.selectedhour.price;
@@ -762,7 +781,7 @@
                 },
 
                 validatePhone() {
-                    const phoneRegex = /^[0-9]{10,15}$/;  // allow 10–15 digit phone number
+                    const phoneRegex = /^[0-9]{10,15}$/;
 
                     if (!this.contactFrom.phone || this.contactFrom.phone.trim() === '') {
                         this.personalInformationError.phone = 'This field is required.';
@@ -786,11 +805,54 @@
                     }
                 },
                 submitPersonalInfoFrom() {
-
                     if (this.validateField('fullName') && this.validateEmail() && this.validateField('country') && this.validatePhone('phone') && this.validateAgreement('termsCancellation') && this.validateAgreement('termsBooking')) {
 
-                        console.log('working');
+                        this.isSubmitting = true; // Start loading
 
+                        const formData = new FormData();
+                        formData.append('contact_form', JSON.stringify(this.contactFrom));
+                        formData.append('totalPrice', this.totalPrice)
+                        formData.append('tourTitle', this.tour.title)
+                        formData.append('time', this.selectedTime)
+                        formData.append('date', this.selectedDate)
+                        formData.append('additionals', JSON.stringify(this.additioanls))
+                        formData.append('perPassengerPrice', this.getPerPassengerPrice())
+                        formData.append('passengerPrice', this.totalPassengerPrice)
+                        formData.append('passenger', this.seletedPassenger)
+                        formData.append('hour', JSON.stringify(this.selectedhour))
+
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+                        fetch('{{route('pay.stripe')}}', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            body: formData,
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success && data.redirect_url) {
+                                    window.location.href = data.redirect_url;
+                                } else {
+                                    this.isSubmitting = false; // Stop loading on error
+                                    if (typeof toastr !== 'undefined') {
+                                        toastr.error("Something went wrong");
+                                    } else {
+                                        alert("Something went wrong");
+                                    }
+                                }
+                            })
+                            .catch(error => {
+                                this.isSubmitting = false; // Stop loading on error
+                                console.error('Error:', error);
+                                if (typeof toastr !== 'undefined') {
+                                    toastr.error("Something went wrong");
+                                } else {
+                                    alert("Something went wrong");
+                                }
+                            });
                     }
                 }
             }
