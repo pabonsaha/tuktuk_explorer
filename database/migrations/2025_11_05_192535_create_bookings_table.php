@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->nullable();
             $table->string('title')->nullable();
             $table->string('hour')->nullable();
             $table->integer('passengers')->nullable();

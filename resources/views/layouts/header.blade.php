@@ -2,12 +2,12 @@
     <div class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-8">
-                <div class="flex items-center gap-2">
+                <a class="flex items-center gap-2" href="{{route('home')}}">
                     <div class="w-10 h-10 rounded">
                         <img alt="icon" src="{{asset('/logo/logo.ico')}}"/>
                     </div>
                     <span class="text-xl font-bold">TukTuk Explorer</span>
-                </div>
+                </a>
                 <nav class="hidden md:flex gap-6">
                     <a href="#" class="hover:color-primary transition">About</a>
                     <a href="#" class="hover:color-primary transition">Destination</a>

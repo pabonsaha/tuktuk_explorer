@@ -442,7 +442,8 @@
                                         </div>
 
 
-                                        <div class="m-0 p-0" x-show="currentView=='personalInformation'">
+                                        <div class="m-0 p-0" x-show="currentView=='personalInformation'"
+                                             x-ref="personalInformation">
                                             <h2 class="text-sm   font-semibold text-gray-500 mb-6">Contact Details</h2>
 
                                             <div class="space-y-5">
@@ -454,7 +455,7 @@
                                                     <input
                                                         type="text"
                                                         x-model="contactFrom.fullName"
-                                                        :class="personalInformationError.firstName ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                        :class="personalInformationError.fullName ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
                                                         class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                         placeholder="Enter first name"
                                                     />
@@ -581,8 +582,35 @@
                                                           x-text="personalInformationError.termsCancellation"></span>
                                                 </div>
 
+                                                <div class="space-y-3 flex justify-between items-end mb-3">
+                                                    <div class="text-sm font-semibold text-gray-700 m-0">
+                                                        <p>Total Passenger</p>
+
+                                                        <div class="text-xs text-gray-500"><span
+                                                                x-text="seletedPassenger"></span>*€<span
+                                                                x-text="getPerPassengerPrice()"></span></div>
+                                                    </div>
+                                                    <div class="text-xs font-semibold text-gray-500 m-0">€<span
+                                                            x-text="totalPassengerPrice"></span></div>
+                                                </div>
+                                                <template x-for="addition in additioanls">
+                                                    <div class="space-y-1 flex justify-between items-end mb-3"
+                                                         x-show="addition.count>0">
+                                                        <div class="text-sm font-semibold text-gray-700 m-0">
+                                                            <p x-text="addition.title"></p>
+
+                                                            <div class="text-xs text-gray-500"><span
+                                                                    x-text="addition.count"></span>*€<span
+                                                                    x-text="addition.price"></span></div>
+                                                        </div>
+                                                        <div class="text-xs font-semibold text-gray-500 m-0">€<span
+                                                                x-text="addition.count*addition.price"></span></div>
+                                                    </div>
+
+                                                </template>
+
                                                 <!-- Submit Button (Optional) -->
-                                                <div class="pt-4 flex justify-between gap-3">
+                                                <div class="pt-4 flex justify-between gap-3 mb-2">
                                                     <!-- Back Button (smaller) -->
                                                     <button @click="currentView='priceView'"
                                                             type="button"
@@ -692,6 +720,7 @@
                     this.tour = data;
                     data.additional.forEach(extra => {
                         this.additioanls.push({
+                            id: extra.id,
                             title: extra.title,
                             price: extra.price,
                             count: 0,
@@ -754,6 +783,15 @@
                         return;
                     }
                     this.currentView = 'personalInformation';
+                    setTimeout(() => {
+                        const element = this.$refs.personalInformation;
+                        if (element) {
+                            element.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
                 },
                 validateField(field) {
                     if (!this.contactFrom[field] || this.contactFrom[field].trim() === '') {

@@ -5,42 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Service\StripeService;
 use Illuminate\Http\Request;
+use App\Exceptions;
 
 class PaymentController extends Controller
 {
     public function payStripe(Request $request)
     {
-
-        $metadata = [];
-        $metadata['tour_title'] = $request->tourTitle;
-        $metadata['total_price'] = $request->totalPrice;
-        $metadata['per_pessenger_price'] = $request->perPassengerPrice;
-        $metadata['total_passenger_price'] = $request->passengerPrice;
-        $metadata['time'] = $request->time;
-        $metadata['date'] = $request->date;
-        $metadata['passenger'] = $request->passenger;
-        $metadata['hour'] = json_decode($request->hour)->title;
-        $metadata['contact_form'] = $request->contact_form;
-        $additionalsData = [];
-        $loop = 0;
-        foreach (json_decode($request->additionals) as $key => $value) {
-            if ($value->count > 0) {
-                $additionalsData[$loop]['title'] = $value->title;
-                $additionalsData[$loop]['price'] = $value->price;
-                $additionalsData[$loop]['count'] = $value->count;
-                $loop++;
+        try {
+            $metadata = [];
+            $metadata['tour_title'] = $request->tourTitle;
+            $metadata['total_price'] = $request->totalPrice;
+            $metadata['per_pessenger_price'] = $request->perPassengerPrice;
+            $metadata['total_passenger_price'] = $request->passengerPrice;
+            $metadata['time'] = $request->time;
+            $metadata['date'] = $request->date;
+            $metadata['passenger'] = $request->passenger;
+            $metadata['hour'] = json_decode($request->hour)->title;
+            $metadata['contact_form'] = $request->contact_form;
+            $additionalsData = [];
+            $loop = 0;
+            foreach (json_decode($request->additionals) as $key => $value) {
+                if ($value->count > 0) {
+                    $additionalsData[$loop]['title'] = $value->title;
+                    $additionalsData[$loop]['price'] = $value->price;
+                    $additionalsData[$loop]['count'] = $value->count;
+                    $loop++;
+                }
             }
+
+            $metadata['additionals'] = json_encode($additionalsData);
+
+            $stripe = new StripeService();
+            $result = $stripe->pay($request->tourTitle, $request->totalPrice, $metadata);
+            return response()->json([
+                'success' => true,
+                'redirect_url' => $result,
+                'message' => 'Redirecting to payment...'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+            ]);
         }
 
-        $metadata['additionals'] = json_encode($additionalsData);
+    }
 
-        $stripe = new StripeService();
-        $result = $stripe->pay($request->tourTitle, $request->totalPrice, $metadata);
-        return response()->json([
-            'success' => true,
-            'redirect_url' => $result,
-            'message' => 'Redirecting to payment...'
-        ]);
+    public function sendBookingConfirmationEmail(Request $request)
+    {
+        return view('emails.booking-confirmation-email');
     }
 
     public function successPayment(Request $request)
@@ -50,12 +63,12 @@ class PaymentController extends Controller
         $data = $stripe->successPayment($request->session_id);
         $metadata = $data['metadata'];
         if (Booking::where('payment_invoice_id', $data['payment_intent_id'])->exists()) {
-            return view('payment.success', [
-                'message' => 'Payment already confirmed ✅'
-            ]);
+            $booking = Booking::where('payment_invoice_id', $data['payment_intent_id'])->first();
+            return view('tour.success', compact('booking'));
         }
 
         $booking = new Booking();
+        $booking->code = $this->generateBookingId();
         $booking->title = $metadata->tour_title;
         $booking->hour = $metadata->hour;
         $booking->passengers = $metadata->passenger;
@@ -78,10 +91,19 @@ class PaymentController extends Controller
 
         $booking->save();
 
-        return view('payment.success', [
-            'message' => 'Payment have been confirmed.'
-        ]);
+        return view('tour.success', compact('booking'));
 
 
+    }
+
+    public function errorPayment()
+    {
+        return view('tour.error');
+    }
+
+    function generateBookingId($prefix = 'TTE')
+    {
+        $unique = strtoupper(dechex(time() % 100000)) . random_int(10, 99);
+        return $prefix . '-' . $unique;
     }
 }
