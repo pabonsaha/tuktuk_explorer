@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingConfirmationMail;
 use App\Models\Booking;
 use App\Service\StripeService;
 use Illuminate\Http\Request;
 use App\Exceptions;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -51,47 +53,58 @@ class PaymentController extends Controller
 
     }
 
-    public function sendBookingConfirmationEmail(Request $request)
+    public function sendBookingConfirmationEmail($data)
     {
-        return view('emails.booking-confirmation-email');
+        try {
+            Mail::to($data->customer_email)->send(new BookingConfirmationMail($data));
+        } catch (Exception $e) {
+            Log::error('Mail send failed: ' . $e->getMessage());
+        }
     }
 
     public function successPayment(Request $request)
     {
+        try {
+            $stripe = new StripeService();
+            $data = $stripe->successPayment($request->session_id);
+            $metadata = $data['metadata'];
+            if (Booking::where('payment_invoice_id', $data['payment_intent_id'])->exists()) {
+                $booking = Booking::where('payment_invoice_id', $data['payment_intent_id'])->first();
+                return view('tour.success', compact('booking'));
+            }
 
-        $stripe = new StripeService();
-        $data = $stripe->successPayment($request->session_id);
-        $metadata = $data['metadata'];
-        if (Booking::where('payment_invoice_id', $data['payment_intent_id'])->exists()) {
-            $booking = Booking::where('payment_invoice_id', $data['payment_intent_id'])->first();
+            $booking = new Booking();
+            $booking->code = $this->generateBookingId();
+            $booking->title = $metadata->tour_title;
+            $booking->hour = $metadata->hour;
+            $booking->passengers = $metadata->passenger;
+            $booking->additionals = $metadata->additionals;
+            $booking->tour_date = $metadata->date;
+            $booking->tour_time = $metadata->time;
+            $booking->per_pessenger_price = $metadata->per_pessenger_price;
+            $booking->passenger_price = $metadata->total_passenger_price;
+            $booking->total_price = $data['amount_total'];
+            $booking->currency = $data['currency'];
+            $booking->customer_name = json_decode($metadata->contact_form)->fullName;
+            $booking->customer_email = json_decode($metadata->contact_form)->email;
+            $booking->customer_phone = json_decode($metadata->contact_form)->phone;
+            $booking->customer_country = json_decode($metadata->contact_form)->country;
+            $booking->payment_customer_info = json_encode($data['customer_details']);
+            $booking->payment_invoice_id = $data['payment_intent_id'];
+            $booking->payment_status = $data['payment_status'];
+            $booking->active_status = 1;
+            $booking->tour_status = 1;
+
+            $booking->save();
+
+            $this->sendBookingConfirmationEmail($booking);
+
+
             return view('tour.success', compact('booking'));
+
+        } catch (Exception $e) {
+            return route('home')->with('error', 'Something went wrong, Please contact with authority');
         }
-
-        $booking = new Booking();
-        $booking->code = $this->generateBookingId();
-        $booking->title = $metadata->tour_title;
-        $booking->hour = $metadata->hour;
-        $booking->passengers = $metadata->passenger;
-        $booking->additionals = $metadata->additionals;
-        $booking->tour_date = $metadata->date;
-        $booking->tour_time = $metadata->time;
-        $booking->per_pessenger_price = $metadata->per_pessenger_price;
-        $booking->passenger_price = $metadata->total_passenger_price;
-        $booking->total_price = $data['amount_total'];
-        $booking->currency = $data['currency'];
-        $booking->customer_name = json_decode($metadata->contact_form)->fullName;
-        $booking->customer_email = json_decode($metadata->contact_form)->email;
-        $booking->customer_phone = json_decode($metadata->contact_form)->phone;
-        $booking->customer_country = json_decode($metadata->contact_form)->country;
-        $booking->payment_customer_info = json_encode($data['customer_details']);
-        $booking->payment_invoice_id = $data['payment_intent_id'];
-        $booking->payment_status = $data['payment_status'];
-        $booking->active_status = 1;
-        $booking->tour_status = 1;
-
-        $booking->save();
-
-        return view('tour.success', compact('booking'));
 
 
     }

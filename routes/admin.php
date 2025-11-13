@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/yearly-bookings', [DashboardController::class, 'yearlyBookings'])->name('yearlyBookings');
+
 
     Route::prefix('banner')->name('banner.')->group(function () {
         Route::get('index', [BannerController::class, 'index'])->name('index');

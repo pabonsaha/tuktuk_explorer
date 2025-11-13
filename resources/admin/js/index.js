@@ -7,12 +7,13 @@ import persist from "@alpinejs/persist";
 import flatpickr from "flatpickr";
 import Dropzone from "dropzone";
 
-import chart01 from "./components/charts/chart-01";
-import chart02 from "./components/charts/chart-02";
-import chart03 from "./components/charts/chart-03";
-import map01 from "./components/map-01";
-import "./components/calendar-init.js";
-import "./components/image-resize";
+import yearlyBookingChart from './components/charts/yearly-booking-chart.js'
+
+// import chart02 from "./components/charts/chart-02";
+// import chart03 from "./components/charts/chart-03";
+// import map01 from "./components/map-01";
+// import "./components/calendar-init.js";
+// import "./components/image-resize";
 import axios from 'axios';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
@@ -78,10 +79,7 @@ if (dropzoneArea.length) {
 
 // Document Loaded
 document.addEventListener("DOMContentLoaded", () => {
-    chart01();
-    chart02();
-    chart03();
-    map01();
+    yearlyBookingChart();
 });
 
 // Get the current year
