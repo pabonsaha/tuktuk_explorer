@@ -106,17 +106,25 @@
                     </div>
                 </div>
                 <div class="relative">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="h-80 rounded-lg">
-                            <img alt="image" src="{{asset('/frontend-assets/images/know-us/image-1.png')}}"/>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="h-60 md:h-80 rounded-lg overflow-hidden">
+                            <img
+                                alt="image"
+                                src="{{asset('/frontend-assets/images/know-us/image-1.png')}}"
+                                class="w-full h-full object-cover"
+                            />
                         </div>
-                        <div class="h-80 bg-gray-300 rounded-lg mt-8">
-                            <img alt="image" src="{{asset('/frontend-assets/images/know-us/image-2.png')}}"/>
+                        <div class="h-60 md:h-80 bg-gray-300 rounded-lg md:mt-8 overflow-hidden">
+                            <img
+                                alt="image"
+                                src="{{asset('/frontend-assets/images/know-us/image-2.png')}}"
+                                class="w-full h-full object-cover"
+                            />
                         </div>
                     </div>
                     <div
-                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                        <div class="w-16 h-16 bg-white rounded-full"></div>
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-24 md:h-24 bg-green-500 rounded-full flex items-center justify-center shadow-lg z-10">
+                        <div class="w-10 h-10 md:w-16 md:h-16 bg-white rounded-full"></div>
                     </div>
                 </div>
             </div>
@@ -418,91 +426,91 @@
         </div>
     </section>
 
-    <!-- Our Happy Traveller -->
-    <section class="py-20 bg-green-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-4">Our Happy Traveller</h2>
+    {{--    <!-- Our Happy Traveller -->--}}
+    {{--    <section class="py-20 bg-green-50">--}}
+    {{--        <div class="container mx-auto px-4">--}}
+    {{--            <h2 class="text-4xl font-bold text-center mb-4">Our Happy Traveller</h2>--}}
 
-            <div class="flex justify-center mb-8">
-                <div class="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow">
-                    <div class="w-8 h-8 bg-green-500 rounded-full"></div>
-                    <span class="font-semibold">TripAdvisor</span>
-                    <div class="flex text-green-500 text-xl">★★★★★</div>
-                    <span class="text-gray-600">950+ reviews</span>
-                </div>
-            </div>
+    {{--            <div class="flex justify-center mb-8">--}}
+    {{--                <div class="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow">--}}
+    {{--                    <div class="w-8 h-8 bg-green-500 rounded-full"></div>--}}
+    {{--                    <span class="font-semibold">TripAdvisor</span>--}}
+    {{--                    <div class="flex text-green-500 text-xl">★★★★★</div>--}}
+    {{--                    <span class="text-gray-600">950+ reviews</span>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
 
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>
-                    <p class="text-gray-600 text-sm mb-4">
-                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of
-                        activities with the other tour members if desired, but we also had plenty of time for individual
-                        exploration.
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
-                        <div>
-                            <div class="font-semibold">Nikol Costa</div>
-                            <div class="text-sm text-gray-500">December 15, 2023</div>
-                        </div>
-                    </div>
-                </div>
+    {{--            <div class="grid md:grid-cols-4 gap-6">--}}
+    {{--                <div class="bg-white p-6 rounded-lg shadow">--}}
+    {{--                    <div class="flex text-yellow-400 mb-4">★★★★★</div>--}}
+    {{--                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>--}}
+    {{--                    <p class="text-gray-600 text-sm mb-4">--}}
+    {{--                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of--}}
+    {{--                        activities with the other tour members if desired, but we also had plenty of time for individual--}}
+    {{--                        exploration.--}}
+    {{--                    </p>--}}
+    {{--                    <div class="flex items-center gap-3">--}}
+    {{--                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>--}}
+    {{--                        <div>--}}
+    {{--                            <div class="font-semibold">Nikol Costa</div>--}}
+    {{--                            <div class="text-sm text-gray-500">December 15, 2023</div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
 
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>
-                    <p class="text-gray-600 text-sm mb-4">
-                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of
-                        activities with the other tour members if desired, but we also had plenty of time for individual
-                        exploration.
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
-                        <div>
-                            <div class="font-semibold">Sarah Castro</div>
-                            <div class="text-sm text-gray-500">January 8, 2024</div>
-                        </div>
-                    </div>
-                </div>
+    {{--                <div class="bg-white p-6 rounded-lg shadow">--}}
+    {{--                    <div class="flex text-yellow-400 mb-4">★★★★★</div>--}}
+    {{--                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>--}}
+    {{--                    <p class="text-gray-600 text-sm mb-4">--}}
+    {{--                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of--}}
+    {{--                        activities with the other tour members if desired, but we also had plenty of time for individual--}}
+    {{--                        exploration.--}}
+    {{--                    </p>--}}
+    {{--                    <div class="flex items-center gap-3">--}}
+    {{--                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>--}}
+    {{--                        <div>--}}
+    {{--                            <div class="font-semibold">Sarah Castro</div>--}}
+    {{--                            <div class="text-sm text-gray-500">January 8, 2024</div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
 
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>
-                    <p class="text-gray-600 text-sm mb-4">
-                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of
-                        activities with the other tour members if desired, but we also had plenty of time for individual
-                        exploration.
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
-                        <div>
-                            <div class="font-semibold">Mark Ulrich</div>
-                            <div class="text-sm text-gray-500">February 20, 2024</div>
-                        </div>
-                    </div>
-                </div>
+    {{--                <div class="bg-white p-6 rounded-lg shadow">--}}
+    {{--                    <div class="flex text-yellow-400 mb-4">★★★★★</div>--}}
+    {{--                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>--}}
+    {{--                    <p class="text-gray-600 text-sm mb-4">--}}
+    {{--                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of--}}
+    {{--                        activities with the other tour members if desired, but we also had plenty of time for individual--}}
+    {{--                        exploration.--}}
+    {{--                    </p>--}}
+    {{--                    <div class="flex items-center gap-3">--}}
+    {{--                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>--}}
+    {{--                        <div>--}}
+    {{--                            <div class="font-semibold">Mark Ulrich</div>--}}
+    {{--                            <div class="text-sm text-gray-500">February 20, 2024</div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
 
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex text-yellow-400 mb-4">★★★★★</div>
-                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>
-                    <p class="text-gray-600 text-sm mb-4">
-                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of
-                        activities with the other tour members if desired, but we also had plenty of time for individual
-                        exploration.
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
-                        <div>
-                            <div class="font-semibold">Anna Larso</div>
-                            <div class="text-sm text-gray-500">March 5, 2024</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{--                <div class="bg-white p-6 rounded-lg shadow">--}}
+    {{--                    <div class="flex text-yellow-400 mb-4">★★★★★</div>--}}
+    {{--                    <h3 class="font-bold mb-2">It really was perfectly organized</h3>--}}
+    {{--                    <p class="text-gray-600 text-sm mb-4">--}}
+    {{--                        It really was perfectly organized. It was a very friendly and helpful group. We had lots of--}}
+    {{--                        activities with the other tour members if desired, but we also had plenty of time for individual--}}
+    {{--                        exploration.--}}
+    {{--                    </p>--}}
+    {{--                    <div class="flex items-center gap-3">--}}
+    {{--                        <div class="w-12 h-12 bg-gray-300 rounded-full"></div>--}}
+    {{--                        <div>--}}
+    {{--                            <div class="font-semibold">Anna Larso</div>--}}
+    {{--                            <div class="text-sm text-gray-500">March 5, 2024</div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 
 @endsection
 

@@ -29,7 +29,7 @@
                     <div class="space-y-3">
                         <div class="flex items-start justify-between">
                             <span class="text-gray-600">Tour Name:</span>
-                            <span class="font-semibold text-gray-900 text-right">{{ $booking->name }}</span>
+                            <span class="font-semibold text-gray-900 text-right">{{ $booking->title }}</span>
                         </div>
                         <div class="flex items-start justify-between">
                             <span class="text-gray-600">Booking ID:</span>

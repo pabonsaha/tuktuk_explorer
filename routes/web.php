@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
 Route::name('tour.')->prefix('tour')->group(function () {
     Route::get('{slug}', [TourController::class, 'details'])->name('details');
 });
@@ -37,6 +40,16 @@ Route::name('pay.')->prefix('pay')->group(function () {
     Route::get('/send-email', [PaymentController::class, 'sendBookingConfirmationEmail'])->name('send-email');
 });
 
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('storage:link');
+
+    return 'Cache cleared!';
+});
 
 
 require __DIR__ . '/auth.php';

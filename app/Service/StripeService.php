@@ -8,9 +8,17 @@ class StripeService
 {
     private $stripe;
 
-    function __construct()
+    public function __construct()
     {
-        $this->stripe = new StripeClient(env('STRIPE_SECRET'));
+        // ✅ Use config() instead of env()
+        $stripeSecret = config('services.stripe.secret');
+
+        // Validate that the key exists
+        if (empty($stripeSecret)) {
+            throw new \Exception('Stripe secret key is not configured. Please check your .env file.');
+        }
+
+        $this->stripe = new StripeClient($stripeSecret);
     }
 
     public function createPaymentPayload($name, $amount, $quantity = 1)
@@ -31,7 +39,6 @@ class StripeService
     {
         return intval($amount * 100);
     }
-
 
     public function pay($product_name, $amount, $metaData = [])
     {
@@ -65,5 +72,4 @@ class StripeService
 
         return $data;
     }
-
 }

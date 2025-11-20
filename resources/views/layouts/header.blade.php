@@ -8,18 +8,11 @@
                     </div>
                     <span class="text-xl font-bold">TukTuk Explorer</span>
                 </a>
-                <nav class="hidden md:flex gap-6">
-                    <a href="#" class="hover:color-primary transition">About</a>
-                    <a href="#" class="hover:color-primary transition">Destination</a>
-                    <a href="#" class="hover:text-orange-500 transition">Tour</a>
-                    <a href="#" class="hover:text-orange-500 transition">Blog</a>
-                    <a href="#" class="hover:text-orange-500 transition">Pages</a>
-                </nav>
             </div>
             <div class="flex items-center gap-4">
-                <button class=" bg-primary px-6 py-2 rounded-full transition text-white" >
-                    Book Now
-                </button>
+                <a href="{{route('about')}}" class=" bg-primary px-6 py-2 rounded-full transition text-white">
+                   About Me
+                </a>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TourAdditionalController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\TourHourController;
+use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +56,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('details/{id}', [BookingController::class, 'details'])->name('details');
         Route::post('/update-status/{id}', [BookingController::class, 'updateStatus'])->name('admin.booking.updateStatus');
 
+    });
+
+    Route::prefix('/profile')->name('profile.')->group(function () {
+        Route::get('/password/change', [ProfileController::class, 'edit'])->name('password.change');
+        Route::put('/password/update', [ProfileController::class, 'update'])->name('password.update');
     });
 });
 

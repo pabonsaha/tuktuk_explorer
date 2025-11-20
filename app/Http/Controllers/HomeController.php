@@ -15,4 +15,10 @@ class HomeController extends Controller
         $tours = Tour::where('is_active',1)->get();
         return view('home',compact('banners','tours'));
     }
+
+
+    public function about()
+    {
+        return view('about');
+    }
 }

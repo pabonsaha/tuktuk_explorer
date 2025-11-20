@@ -1,6 +1,6 @@
 <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-5 gap-8 mb-8">
+        <div class="flex flex-row justify-between gap-8 mb-8">
             <div>
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-8 h-8 bg-orange-500 rounded"><img  src="{{asset('/logo/logo.ico')}}"></div>
@@ -13,40 +13,6 @@
                     <span>📞</span>
                     <span>+351 920 204 443</span>
                 </div>
-            </div>
-
-            <div>
-                <h3 class="font-bold mb-4">Company</h3>
-                <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition">About us</a></li>
-                    <li><a href="#" class="hover:text-white transition">Community Blog</a></li>
-                    <li><a href="#" class="hover:text-white transition">Rewards</a></li>
-                    <li><a href="#" class="hover:text-white transition">Work with Us</a></li>
-                    <li><a href="#" class="hover:text-white transition">Meet the Team</a></li>
-                    <li><a href="#" class="hover:text-white transition">Partners</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="font-bold mb-4">Services</h3>
-                <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition">Tour Guide</a></li>
-                    <li><a href="#" class="hover:text-white transition">Tour Booking</a></li>
-                    <li><a href="#" class="hover:text-white transition">Hotel Booking</a></li>
-                    <li><a href="#" class="hover:text-white transition">Ticket Booking</a></li>
-                    <li><a href="#" class="hover:text-white transition">Rental Services</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="font-bold mb-4">Need Help?</h3>
-                <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition">FAQs</a></li>
-                    <li><a href="#" class="hover:text-white transition">Contact us</a></li>
-                    <li><a href="#" class="hover:text-white transition">Customer Service</a></li>
-                    <li><a href="#" class="hover:text-white transition">Privacy policy</a></li>
-                    <li><a href="#" class="hover:text-white transition">Terms of use</a></li>
-                </ul>
             </div>
 
             <div>

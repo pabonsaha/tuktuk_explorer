@@ -57,6 +57,11 @@ class PaymentController extends Controller
     {
         try {
             Mail::to($data->customer_email)->send(new BookingConfirmationMail($data));
+            Mail::raw('🚀New Tour Booked In Tuktuk Explorer.', function ($message) {
+                $message->to('riazuddin3400@gmail.com')
+                    ->subject('Tuktuk New Booking');
+            });
+
         } catch (Exception $e) {
             Log::error('Mail send failed: ' . $e->getMessage());
         }

@@ -293,359 +293,363 @@
                         <div>
                             <!-- Sidebar -->
                             <div class="lg:col-span-1">
-                                <div class="sticky top-4" x-data="priceForm()"
-                                     x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});">
-                                    <!-- Booking Card -->
-                                    <!-- Tour Options Section -->
-                                    <div class="max-w-md mx-auto p-4 space-y-4 border border-gray-400 rounded-xl">
+                                @if(!$tour->hours->isEmpty())
+                                    <div class="sticky top-4" x-data="priceForm()"
+                                         x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});">
+                                        <!-- Booking Card -->
+                                        <!-- Tour Options Section -->
+                                        <div class="max-w-md mx-auto p-4 space-y-4 border border-gray-400 rounded-xl">
 
-                                        <!-- Duration Options -->
-                                        <div class="space-y-3">
-                                            <h2 class="font-semibold text-lg p">Book Tour</h2>
-                                            <hr/>
-                                        </div>
-                                        <div x-show="currentView=='priceView'">
+                                            <!-- Duration Options -->
                                             <div class="space-y-3">
-                                                <h2 class="font-bold text-gray-500 text-sm">Options</h2>
-                                                @foreach($tour->hours as $hour)
-                                                    <div
-                                                        class="border-2 rounded-xl p-4 cursor-pointer hover:border-primary transition"
-                                                        @click="setHour({{$hour}})"
-                                                        :class="{ 'border-primary': selectedhour?.id === {{$hour->id}} }"
-                                                    >
-                                                        <h3 class="font-bold mb-1">{{$hour->title}}</h3>
-                                                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-4">{{$hour->description}}</p>
-                                                    </div>
-                                                @endforeach
+                                                <h2 class="font-semibold text-lg p">Book Tour</h2>
+                                                <hr/>
                                             </div>
-
-                                            <!-- Passenger Counter -->
-                                            <div class="flex items-center justify-between rounded-xl my-5 p-4">
-                                                <div>
-                                                    <p class="font-semibold">Passenger</p>
-                                                    <p class="text-xs text-gray-500 text-sm">from €<span
-                                                            x-text="selectedhour?.price?getPerPassengerPrice():{{$tour->starting_price}}"></span>
-                                                    </p>
-                                                </div>
-                                                <div class="flex items-center space-x-3">
-                                                    <button @click="if (seletedPassenger>1)seletedPassenger--"
-                                                            class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
-                                                        −
-                                                    </button>
-                                                    <input class="text-lg font-semibold w-8 text-center"
-                                                           name="passenger"
-                                                           disabled
-                                                           x-model="seletedPassenger">
-                                                    <button @click="seletedPassenger++"
-                                                            class="bg-primary text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <!-- Add-ons List -->
-                                            <div class="space-y-2 bg-gray-100 p-5 rounded-xl">
-
-                                                <template x-for="addition in additioanls">
-                                                    <div
-                                                        class="border rounded-xl p-4 flex items-center justify-between">
-                                                        <div>
-                                                            <p class="font-semibold text-sm"
-                                                               x-text="addition.title"></p>
-                                                            <p class="text-xs text-gray-500">from
-                                                                €<span x-text="addition.price"></span></p>
+                                            <div x-show="currentView=='priceView'">
+                                                <div class="space-y-3">
+                                                    <h2 class="font-bold text-gray-500 text-sm">Options</h2>
+                                                    @foreach($tour->hours as $hour)
+                                                        <div
+                                                            class="border-2 rounded-xl p-4 cursor-pointer hover:border-primary transition"
+                                                            @click="setHour({{$hour}})"
+                                                            :class="{ 'border-primary': selectedhour?.id === {{$hour->id}} }"
+                                                        >
+                                                            <h3 class="font-bold mb-1">{{$hour->title}}</h3>
+                                                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-4">{{$hour->description}}</p>
                                                         </div>
-                                                        <div class="flex items-center space-x-3">
-                                                            <button
-                                                                @click="if (addition.count>0)addition.count--"
+                                                    @endforeach
+                                                </div>
+
+                                                <!-- Passenger Counter -->
+                                                <div class="flex items-center justify-between rounded-xl my-5 p-4">
+                                                    <div>
+                                                        <p class="font-semibold">Passenger</p>
+                                                        <p class="text-xs text-gray-500 text-sm">from €<span
+                                                                x-text="selectedhour?.price?getPerPassengerPrice():{{$tour->starting_price}}"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex items-center space-x-3">
+                                                        <button @click="if (seletedPassenger>1)seletedPassenger--"
                                                                 class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
-                                                                −
-                                                            </button>
-                                                            <input class="text-lg font-semibold w-8 text-center"
-                                                                   disabled
-                                                                   x-model="addition.count">
-                                                            <button @click="addition.count++"
-                                                                    class="bg-primary text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
-                                                                +
-                                                            </button>
-                                                        </div>
+                                                            −
+                                                        </button>
+                                                        <input class="text-lg font-semibold w-8 text-center"
+                                                               name="passenger"
+                                                               disabled
+                                                               x-model="seletedPassenger">
+                                                        <button @click="seletedPassenger++"
+                                                                class="bg-primary text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                            +
+                                                        </button>
                                                     </div>
-                                                </template>
+                                                </div>
 
+                                                <!-- Add-ons List -->
+                                                <div class="space-y-2 bg-gray-100 p-5 rounded-xl">
 
-                                            </div>
-
-                                            <div class="space-y-2">
-                                                <div class="space-y-4">
-
-                                                    <!-- Date Picker -->
-                                                    <div class="space-y-1">
-                                                        <label class="block text-sm font-medium text-gray-700 mb-1">Select
-                                                            Date</label>
-                                                        <div class="relative">
-                                                            <input type="date" x-model="selectedDate"
-                                                                   class="w-full bg-white border border-gray-300 rounded-xl py-3 pl-4 pr-10 shadow-sm focus:ring-2 focus:ring-primary focus:border-primary transition"/>
-                                                            <span
-                                                                class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">📅</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Time Slots -->
-                                                    <div x-show="selectedDate">
-                                                        <label class="block text-sm font-medium text-gray-700 mb-1">Select
-                                                            Time</label>
-
-                                                        <div class="grid grid-cols-3 gap-2">
-                                                            <template x-for="time in availableTimes" :key="time">
+                                                    <template x-for="addition in additioanls">
+                                                        <div
+                                                            class="border rounded-xl p-4 flex items-center justify-between">
+                                                            <div>
+                                                                <p class="font-semibold text-sm"
+                                                                   x-text="addition.title"></p>
+                                                                <p class="text-xs text-gray-500">from
+                                                                    €<span x-text="addition.price"></span></p>
+                                                            </div>
+                                                            <div class="flex items-center space-x-3">
                                                                 <button
-                                                                    @click="selectTime(time)"
-                                                                    :class="time === selectedTime
+                                                                    @click="if (addition.count>0)addition.count--"
+                                                                    class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
+                                                                    −
+                                                                </button>
+                                                                <input class="text-lg font-semibold w-8 text-center"
+                                                                       disabled
+                                                                       x-model="addition.count">
+                                                                <button @click="addition.count++"
+                                                                        class="bg-primary text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                    +
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+
+
+                                                </div>
+
+                                                <div class="space-y-2">
+                                                    <div class="space-y-4">
+
+                                                        <!-- Date Picker -->
+                                                        <div class="space-y-1">
+                                                            <label class="block text-sm font-medium text-gray-700 mb-1">Select
+                                                                Date</label>
+                                                            <div class="relative">
+                                                                <input type="date" x-model="selectedDate"
+                                                                       class="w-full bg-white border border-gray-300 rounded-xl py-3 pl-4 pr-10 shadow-sm focus:ring-2 focus:ring-primary focus:border-primary transition"/>
+                                                                <span
+                                                                    class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">📅</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Time Slots -->
+                                                        <div x-show="selectedDate">
+                                                            <label class="block text-sm font-medium text-gray-700 mb-1">Select
+                                                                Time</label>
+
+                                                            <div class="grid grid-cols-3 gap-2">
+                                                                <template x-for="time in availableTimes" :key="time">
+                                                                    <button
+                                                                        @click="selectTime(time)"
+                                                                        :class="time === selectedTime
                                                                     ? 'bg-primary text-white'
                                                                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                                                                    class="p-2 rounded-lg text-sm font-medium transition">
-                                                                    <span x-text="time"></span>
-                                                                </button>
-                                                            </template>
+                                                                        class="p-2 rounded-lg text-sm font-medium transition">
+                                                                        <span x-text="time"></span>
+                                                                    </button>
+                                                                </template>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <!-- Selection Result -->
-                                                    <div x-show="selectedTime"
-                                                         class="p-3 bg-green-50 border border-green-60 rounded-lg text-sm text-green-700">
-                                                        Tour Date: <span class="font-semibold"
-                                                                         x-text="formatDate(selectedDate)"></span> at
-                                                        <span
-                                                            class="font-semibold"
-                                                            x-text="selectedTime"></span>
-                                                    </div>
+                                                        <!-- Selection Result -->
+                                                        <div x-show="selectedTime"
+                                                             class="p-3 bg-green-50 border border-green-60 rounded-lg text-sm text-green-700">
+                                                            Tour Date: <span class="font-semibold"
+                                                                             x-text="formatDate(selectedDate)"></span>
+                                                            at
+                                                            <span
+                                                                class="font-semibold"
+                                                                x-text="selectedTime"></span>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="space-y-2 mt-2" x-show="priceFormErrors.length>0">
-                                                <template x-for="error in priceFormErrors">
-                                                    <p
-                                                        class="px-3 py-1 bg-red-50 border border-red-60 rounded text-sm text-red-700"
-                                                        x-text="error">
+                                                <div class="space-y-2 mt-2" x-show="priceFormErrors.length>0">
+                                                    <template x-for="error in priceFormErrors">
+                                                        <p
+                                                            class="px-3 py-1 bg-red-50 border border-red-60 rounded text-sm text-red-700"
+                                                            x-text="error">
 
-                                                    </p>
-                                                </template>
-                                            </div>
+                                                        </p>
+                                                    </template>
+                                                </div>
 
-                                            <!-- Continue Button -->
-                                            <button @click="submitPriceForm()"
-                                                    class="mt-2 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition flex justify-around">
+                                                <!-- Continue Button -->
+                                                <button @click="submitPriceForm()"
+                                                        class="mt-2 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition flex justify-around">
                                                 <span>
                                                     €<span x-text="getTotalPrice()"></span>
                                                 </span>
-                                                <span>Continue →</span>
-                                            </button>
-                                        </div>
+                                                    <span>Continue →</span>
+                                                </button>
+                                            </div>
 
 
-                                        <div class="m-0 p-0" x-show="currentView=='personalInformation'"
-                                             x-ref="personalInformation">
-                                            <h2 class="text-sm   font-semibold text-gray-500 mb-6">Contact Details</h2>
+                                            <div class="m-0 p-0" x-show="currentView=='personalInformation'"
+                                                 x-ref="personalInformation">
+                                                <h2 class="text-sm   font-semibold text-gray-500 mb-6">Contact
+                                                    Details</h2>
 
-                                            <div class="space-y-5">
-                                                <!-- First Name -->
-                                                <div>
-                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                        Full name <span class="text-red-500">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        x-model="contactFrom.fullName"
-                                                        :class="personalInformationError.fullName ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
-                                                        class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
-                                                        placeholder="Enter first name"
-                                                    />
-                                                    <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
-                                                          x-show="personalInformationError.fullName"
-                                                          x-text="personalInformationError.fullName"></span>
-                                                </div>
-
-
-                                                <!-- Email -->
-                                                <div>
-                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                        Email <span class="text-red-500">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="email"
-                                                        x-model="contactFrom.email"
-                                                        :class="personalInformationError.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
-                                                        class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
-                                                        placeholder="someone@example.com"
-                                                    />
-                                                    <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
-                                                          x-show="personalInformationError.email"
-                                                          x-text="personalInformationError.email"></span>
-                                                </div>
-
-                                                <!-- Phone -->
-                                                <div>
-                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                        Mobile phone <span class="text-red-500">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="tel"
-                                                        x-model="contactFrom.phone"
-
-                                                        :class="personalInformationError.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
-                                                        class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
-                                                        placeholder="Enter phone number"
-                                                    />
-                                                    <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
-                                                          x-show="personalInformationError.phone"
-                                                          x-text="personalInformationError.phone"></span>
-                                                </div>
-
-                                                <!-- Country -->
-                                                <div>
-                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                        Country <span class="text-red-500">*</span>
-                                                    </label>
-                                                    <select
-                                                        x-model="contactFrom.country"
-
-                                                        :class="personalInformationError.country ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
-                                                        class="w-full border rounded-lg px-4 py-3 text-gray-900 bg-white transition duration-150 focus:ring-2 focus:outline-none"
-                                                    >
-                                                        <option value="">Select country</option>
-                                                        <option value="United States">United States</option>
-                                                        <option value="United Kingdom">United Kingdom</option>
-                                                        <option value="Canada">Canada</option>
-                                                        <option value="Australia">Australia</option>
-                                                        <option value="Germany">Germany</option>
-                                                        <option value="France">France</option>
-                                                        <option value="Spain">Spain</option>
-                                                        <option value="Italy">Italy</option>
-                                                        <option value="Portugal">Portugal</option>
-                                                        <option value="Netherlands">Netherlands</option>
-                                                        <option value="Belgium">Belgium</option>
-                                                        <option value="Switzerland">Switzerland</option>
-                                                        <option value="Austria">Austria</option>
-                                                        <option value="Sweden">Sweden</option>
-                                                        <option value="Norway">Norway</option>
-                                                        <option value="Denmark">Denmark</option>
-                                                        <option value="Finland">Finland</option>
-                                                        <option value="Ireland">Ireland</option>
-                                                        <option value="Poland">Poland</option>
-                                                        <option value="Czech Republic">Czech Republic</option>
-                                                        <option value="Greece">Greece</option>
-                                                        <option value="Japan">Japan</option>
-                                                        <option value="South Korea">South Korea</option>
-                                                        <option value="Singapore">Singapore</option>
-                                                        <option value="New Zealand">New Zealand</option>
-                                                        <option value="Brazil">Brazil</option>
-                                                        <option value="Mexico">Mexico</option>
-                                                        <option value="India">India</option>
-                                                        <option value="China">China</option>
-                                                        <option value="United Arab Emirates">United Arab Emirates
-                                                        </option>
-                                                    </select>
-                                                    <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
-                                                          x-show="personalInformationError.country"
-                                                          x-text="personalInformationError.country"></span>
-                                                </div>
-
-                                                <!-- Terms -->
-                                                <div class="space-y-4 pt-2">
-                                                    <label class="flex items-start gap-3 cursor-pointer group">
+                                                <div class="space-y-5">
+                                                    <!-- First Name -->
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Full name <span class="text-red-500">*</span>
+                                                        </label>
                                                         <input
-                                                            type="checkbox"
-                                                            x-model="contactFrom.termsBooking"
-                                                            class="w-4 h-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                                            type="text"
+                                                            x-model="contactFrom.fullName"
+                                                            :class="personalInformationError.fullName ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
+                                                            placeholder="Enter first name"
                                                         />
-                                                        <span class="text-sm text-gray-700 select-none">
-                            I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">booking terms</a> <span
-                                                                class="text-red-500">*</span>
-                        </span>
-                                                    </label>
-                                                    <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
-                                                          x-show="personalInformationError.termsBooking"
-                                                          x-text="personalInformationError.termsBooking"></span>
-
-                                                    <label class="flex items-start gap-3 cursor-pointer group">
-                                                        <input
-                                                            type="checkbox"
-                                                            x-model="contactFrom.termsCancellation"
-                                                            class="w-4 h-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
-                                                        />
-                                                        <span class="text-sm text-gray-700 select-none">
-                            I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">cancellation terms</a> <span
-                                                                class="text-red-500">*</span>
-                        </span>
-                                                    </label>
-                                                    <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
-                                                          x-show="personalInformationError.termsCancellation"
-                                                          x-text="personalInformationError.termsCancellation"></span>
-                                                </div>
-
-                                                <div class="space-y-3 flex justify-between items-end mb-3">
-                                                    <div class="text-sm font-semibold text-gray-700 m-0">
-                                                        <p>Total Passenger</p>
-
-                                                        <div class="text-xs text-gray-500"><span
-                                                                x-text="seletedPassenger"></span>*€<span
-                                                                x-text="getPerPassengerPrice()"></span></div>
+                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                              x-show="personalInformationError.fullName"
+                                                              x-text="personalInformationError.fullName"></span>
                                                     </div>
-                                                    <div class="text-xs font-semibold text-gray-500 m-0">€<span
-                                                            x-text="totalPassengerPrice"></span></div>
-                                                </div>
-                                                <template x-for="addition in additioanls">
-                                                    <div class="space-y-1 flex justify-between items-end mb-3"
-                                                         x-show="addition.count>0">
+
+
+                                                    <!-- Email -->
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Email <span class="text-red-500">*</span>
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            x-model="contactFrom.email"
+                                                            :class="personalInformationError.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
+                                                            placeholder="someone@example.com"
+                                                        />
+                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                              x-show="personalInformationError.email"
+                                                              x-text="personalInformationError.email"></span>
+                                                    </div>
+
+                                                    <!-- Phone -->
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Mobile phone <span class="text-red-500">*</span>
+                                                        </label>
+                                                        <input
+                                                            type="tel"
+                                                            x-model="contactFrom.phone"
+
+                                                            :class="personalInformationError.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
+                                                            placeholder="Enter phone number"
+                                                        />
+                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                              x-show="personalInformationError.phone"
+                                                              x-text="personalInformationError.phone"></span>
+                                                    </div>
+
+                                                    <!-- Country -->
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Country <span class="text-red-500">*</span>
+                                                        </label>
+                                                        <select
+                                                            x-model="contactFrom.country"
+
+                                                            :class="personalInformationError.country ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            class="w-full border rounded-lg px-4 py-3 text-gray-900 bg-white transition duration-150 focus:ring-2 focus:outline-none"
+                                                        >
+                                                            <option value="">Select country</option>
+                                                            <option value="United States">United States</option>
+                                                            <option value="United Kingdom">United Kingdom</option>
+                                                            <option value="Canada">Canada</option>
+                                                            <option value="Australia">Australia</option>
+                                                            <option value="Germany">Germany</option>
+                                                            <option value="France">France</option>
+                                                            <option value="Spain">Spain</option>
+                                                            <option value="Italy">Italy</option>
+                                                            <option value="Portugal">Portugal</option>
+                                                            <option value="Netherlands">Netherlands</option>
+                                                            <option value="Belgium">Belgium</option>
+                                                            <option value="Switzerland">Switzerland</option>
+                                                            <option value="Austria">Austria</option>
+                                                            <option value="Sweden">Sweden</option>
+                                                            <option value="Norway">Norway</option>
+                                                            <option value="Denmark">Denmark</option>
+                                                            <option value="Finland">Finland</option>
+                                                            <option value="Ireland">Ireland</option>
+                                                            <option value="Poland">Poland</option>
+                                                            <option value="Czech Republic">Czech Republic</option>
+                                                            <option value="Greece">Greece</option>
+                                                            <option value="Japan">Japan</option>
+                                                            <option value="South Korea">South Korea</option>
+                                                            <option value="Singapore">Singapore</option>
+                                                            <option value="New Zealand">New Zealand</option>
+                                                            <option value="Brazil">Brazil</option>
+                                                            <option value="Mexico">Mexico</option>
+                                                            <option value="India">India</option>
+                                                            <option value="China">China</option>
+                                                            <option value="United Arab Emirates">United Arab Emirates
+                                                            </option>
+                                                        </select>
+                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                              x-show="personalInformationError.country"
+                                                              x-text="personalInformationError.country"></span>
+                                                    </div>
+
+                                                    <!-- Terms -->
+                                                    <div class="space-y-4 pt-2">
+                                                        <label class="flex items-start gap-3 cursor-pointer group">
+                                                            <input
+                                                                type="checkbox"
+                                                                x-model="contactFrom.termsBooking"
+                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                                            />
+                                                            <span class="text-sm text-gray-700 select-none">
+                            I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">booking terms</a> <span
+                                                                    class="text-red-500">*</span>
+                        </span>
+                                                        </label>
+                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                              x-show="personalInformationError.termsBooking"
+                                                              x-text="personalInformationError.termsBooking"></span>
+
+                                                        <label class="flex items-start gap-3 cursor-pointer group">
+                                                            <input
+                                                                type="checkbox"
+                                                                x-model="contactFrom.termsCancellation"
+                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                                            />
+                                                            <span class="text-sm text-gray-700 select-none">
+                            I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">cancellation terms</a> <span
+                                                                    class="text-red-500">*</span>
+                        </span>
+                                                        </label>
+                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                              x-show="personalInformationError.termsCancellation"
+                                                              x-text="personalInformationError.termsCancellation"></span>
+                                                    </div>
+
+                                                    <div class="space-y-3 flex justify-between items-end mb-3">
                                                         <div class="text-sm font-semibold text-gray-700 m-0">
-                                                            <p x-text="addition.title"></p>
+                                                            <p>Total Passenger</p>
 
                                                             <div class="text-xs text-gray-500"><span
-                                                                    x-text="addition.count"></span>*€<span
-                                                                    x-text="addition.price"></span></div>
+                                                                    x-text="seletedPassenger"></span>*€<span
+                                                                    x-text="getPerPassengerPrice()"></span></div>
                                                         </div>
                                                         <div class="text-xs font-semibold text-gray-500 m-0">€<span
-                                                                x-text="addition.count*addition.price"></span></div>
+                                                                x-text="totalPassengerPrice"></span></div>
                                                     </div>
+                                                    <template x-for="addition in additioanls">
+                                                        <div class="space-y-1 flex justify-between items-end mb-3"
+                                                             x-show="addition.count>0">
+                                                            <div class="text-sm font-semibold text-gray-700 m-0">
+                                                                <p x-text="addition.title"></p>
 
-                                                </template>
+                                                                <div class="text-xs text-gray-500"><span
+                                                                        x-text="addition.count"></span>*€<span
+                                                                        x-text="addition.price"></span></div>
+                                                            </div>
+                                                            <div class="text-xs font-semibold text-gray-500 m-0">€<span
+                                                                    x-text="addition.count*addition.price"></span></div>
+                                                        </div>
 
-                                                <!-- Submit Button (Optional) -->
-                                                <div class="pt-4 flex justify-between gap-3 mb-2">
-                                                    <!-- Back Button (smaller) -->
-                                                    <button @click="currentView='priceView'"
-                                                            type="button"
-                                                            class="flex items-center gap-2 w-1/3 justify-center border border-gray-400
+                                                    </template>
+
+                                                    <!-- Submit Button (Optional) -->
+                                                    <div class="pt-4 flex justify-between gap-3 mb-2">
+                                                        <!-- Back Button (smaller) -->
+                                                        <button @click="currentView='priceView'"
+                                                                type="button"
+                                                                class="flex items-center gap-2 w-1/3 justify-center border border-gray-400
                                                             text-gray-700 bg-white hover:bg-gray-100 font-medium py-3 rounded-lg transition duration-150">
-                                                        ← Back
-                                                    </button>
+                                                            ← Back
+                                                        </button>
 
-                                                    <!-- Pay Button (bigger) -->
-                                                    <!-- Pay Button (bigger) -->
-                                                    <button @click="submitPersonalInfoFrom()"
-                                                            :disabled="isSubmitting"
-                                                            type="button"
-                                                            class="flex items-center gap-2 w-2/3 justify-around bg-green-700
+                                                        <!-- Pay Button (bigger) -->
+                                                        <!-- Pay Button (bigger) -->
+                                                        <button @click="submitPersonalInfoFrom()"
+                                                                :disabled="isSubmitting"
+                                                                type="button"
+                                                                class="flex items-center gap-2 w-2/3 justify-around bg-green-700
                hover:bg-green-600 text-white font-medium py-3 rounded-lg transition duration-150
                disabled:bg-gray-400 disabled:cursor-not-allowed">
 
-                                                        <!-- Show loading spinner when submitting -->
-                                                        <template x-if="isSubmitting">
-                                                            <svg class="animate-spin h-5 w-5 text-white"
-                                                                 xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                 viewBox="0 0 24 24">
-                                                                <circle class="opacity-25" cx="12" cy="12" r="10"
-                                                                        stroke="currentColor" stroke-width="4"></circle>
-                                                                <path class="opacity-75" fill="currentColor"
-                                                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                            </svg>
-                                                        </template>
+                                                            <!-- Show loading spinner when submitting -->
+                                                            <template x-if="isSubmitting">
+                                                                <svg class="animate-spin h-5 w-5 text-white"
+                                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                     viewBox="0 0 24 24">
+                                                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                                            stroke="currentColor"
+                                                                            stroke-width="4"></circle>
+                                                                    <path class="opacity-75" fill="currentColor"
+                                                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                                </svg>
+                                                            </template>
 
-                                                        <!-- Show price when not submitting -->
-                                                        <span x-show="!isSubmitting">
+                                                            <!-- Show price when not submitting -->
+                                                            <span x-show="!isSubmitting">
         €<span x-text="getTotalPrice()"></span>
     </span>
 
-                                                        <span class="flex justify-center items-center gap-2">
+                                                            <span class="flex justify-center items-center gap-2">
         <template x-if="!isSubmitting">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                  viewBox="0 0 24 24"
@@ -659,18 +663,20 @@
         </template>
         <span x-text="isSubmitting ? 'Processing...' : 'Pay →'"></span>
     </span>
-                                                    </button>
-                                                </div>
+                                                        </button>
+                                                    </div>
 
+                                                </div>
                                             </div>
+
+
+                                            <p class="text-xs text-gray-500">* Tuk Tuk tour, delays may occur due to
+                                                traffic
+                                                or restrictions.</p>
                                         </div>
 
-
-                                        <p class="text-xs text-gray-500">* Tuk Tuk tour, delays may occur due to traffic
-                                            or restrictions.</p>
                                     </div>
-
-                                </div>
+                                @endif
                             </div>
                         </div>
 
