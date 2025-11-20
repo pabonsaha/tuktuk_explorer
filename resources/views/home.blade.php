@@ -21,7 +21,6 @@
             opacity: 1;
         }
 
-
         .banner-slide.active img {
             transition: transform 6s ease-out;
             transform: scale(1.1);
@@ -37,7 +36,7 @@
 @endpush
 
 @section('content')
-    <section class="banner-slider h-screen relative"
+    <section class="banner-slider h-[50vh] md:h-screen relative"
              x-data="bannerSlider()"
              x-init="loadData({{ $banners->toJson() }});">
 
@@ -55,8 +54,8 @@
                     <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
                 </div>
 
-                <div class="absolute bottom-16 left-10 text-white max-w-xl z-20">
-                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-3"
+                <div class="absolute bottom-8 md:bottom-16 left-5 md:left-10 text-white max-w-xl z-20">
+                    <h1 class="text-3xl md:text-6xl font-bold leading-tight mb-3"
                         x-text="slide.title">
                     </h1>
                 </div>
@@ -67,7 +66,7 @@
 
 
     <!-- Why We're Your Perfect Travel Partner -->
-    <section class="py-20 bg-white">
+    <section class="py-10 md:py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
@@ -134,14 +133,14 @@
 
 
     <!-- Best Selling Tours -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-10 md:py-20  bg-gray-50">
         <div class="container mx-auto px-4 mb-8">
             <div class="flex justify-between items-center">
                 <h2 class="text-4xl font-bold">Our Tours</h2>
             </div>
         </div>
 
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 ">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
                 @foreach($tours as $tour)
                     <div
@@ -223,7 +222,7 @@
     </section>
 
     <!-- Features -->
-    <section class="py-16 bg-white">
+    <section class="py-10 md:py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
                 <div class="text-center">
@@ -288,7 +287,7 @@
     </section>
 
     <!-- Destinations We Love -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-10 md:py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-4xl font-bold">Destinations We Love The Most</h2>
@@ -356,7 +355,7 @@
     </section>
 
     <!-- Join Our Travel Community -->
-    <section class="py-20 bg-white">
+    <section class="py-10 md:py-16 bg-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-4xl font-bold mb-4">Join Our Travel Community</h2>
             <p class="text-gray-600 mb-8 max-w-2xl mx-auto">

@@ -20,7 +20,7 @@
                 <ul class="space-y-3 text-gray-400">
                     <li class="flex items-start gap-2">
                         <span>📧</span>
-                        <span>tuktuk.lisbon3400@gmail.com</span>
+                        <a href="mailto:tuktuk.lisbon3400@gmail.com">tuktuk.lisbon3400@gmail.com</a>
                     </li>
                     <li class="flex items-start gap-2">
                         <span>📱</span>
@@ -34,10 +34,6 @@
                         <span>🐦</span>
                         <span>Twitter</span>
                     </li>
-{{--                    <li class="flex items-start gap-2">--}}
-{{--                        <span>💼</span>--}}
-{{--                        <span>Youtube</span>--}}
-{{--                    </li>--}}
                 </ul>
             </div>
         </div>
