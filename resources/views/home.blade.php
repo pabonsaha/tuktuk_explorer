@@ -362,11 +362,12 @@
                 Share your travel experiences and connect with fellow travelers from around the world
             </p>
 
-            <div class="max-w-md mx-auto mb-12">
-                <div class="flex gap-2">
-                    <input type="email" placeholder="Enter your email"
-                           class="flex-1 px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-orange-500">
-                    <button class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition">
+            <div class="max-w-md mx-auto mb-12 px-4">
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="email"
+                           placeholder="Enter your email"
+                           class="flex-1 w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition">
+                    <button class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 active:bg-orange-700 transition whitespace-nowrap sm:w-auto w-full">
                         Subscribe
                     </button>
                 </div>
