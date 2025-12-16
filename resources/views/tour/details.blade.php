@@ -46,17 +46,6 @@
                         <div class="grid lg:grid-cols-3 gap-2">
                             <div class="lg:col-span-2 relative">
                                 <img :src="mainImage" alt="Tour Image" class="w-full h-96 object-cover rounded-lg">
-                                <div
-                                    class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold">
-                                    See all
-                                </div>
-                                <button
-                                    class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M15 19l-7-7 7-7"></path>
-                                    </svg>
-                                </button>
                             </div>
                             <div class="gallery-thumbs">
                                 @foreach($tour->images as $image)
