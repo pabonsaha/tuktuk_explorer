@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('logo/favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo/apple-touch-icon.png') }}">
+    <meta name="thumbnail" content="{{ asset('frontend-assets/images/community/image-11.png') }}">
     <title>Lisbon Tuk Tuk Explorer | Guided Tuk Tuk Tours in Lisbon</title>
 
     <meta name="description"
@@ -21,17 +22,16 @@
     <meta property="og:title" content="Lisbon Tuk Tuk Explorer | Guided Tuk Tuk Tours in Lisbon">
     <meta property="og:description"
           content="Discover Lisbon’s hidden gems with Tuk Tuk tours led by expert local guides. Explore the charm, history, and culture of Portugal’s capital in a unique and memorable way. Book your unforgettable Lisbon experience today.">
-    <meta property="og:image" content="{{ asset('logo/favicon.ico') }}">
+    <meta property="og:image" content="{{ asset('frontend-assets/images/community/image-11.png') }}">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Lisbon Tuk Tuk Explorer">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="{{ config('app.url') }}">
+    <meta name="twitter:image" content="{{ asset('frontend-assets/images/community/image-11.png') }}">
     <meta name="twitter:title" content="Lisbon Tuk Tuk Explorer | Guided Tuk Tuk Tours in Lisbon">
     <meta name="twitter:description"
           content="Discover Lisbon’s hidden gems with Tuk Tuk tours led by expert local guides. Explore the charm, history, and culture of Portugal’s capital in a unique and memorable way. Book your unforgettable Lisbon experience today.">
-    <meta name="twitter:image" content="{{ asset('logo/favicon.ico') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
