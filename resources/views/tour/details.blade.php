@@ -11,6 +11,15 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 0.5rem;
         }
+
+        /* Hide scrollbar for the horizontal date selector */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 @endpush
 {{--@dd($tour)--}}
@@ -284,14 +293,14 @@
                             <div class="lg:col-span-1">
                                 @if(!$tour->hours->isEmpty())
                                     <div class="sticky top-4" x-data="priceForm()"
-                                         x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});">
+                                         x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});generateNextDays();">
                                         <!-- Booking Card -->
                                         <!-- Tour Options Section -->
                                         <div class="max-w-md mx-auto p-4 space-y-4 border border-gray-400 rounded-xl">
 
                                             <!-- Duration Options -->
                                             <div class="space-y-3">
-                                                <h2 class="font-semibold text-lg p">Book Tour</h2>
+                                                <h2 class="font-semibold text-lg">Book Tour</h2>
                                                 <hr/>
                                             </div>
                                             <div x-show="currentView=='priceView'">
@@ -365,34 +374,64 @@
 
                                                 </div>
 
-                                                <div class="space-y-2">
+                                                <div class="space-y-2 mt-4">
                                                     <div class="space-y-4">
 
-                                                        <!-- Date Picker -->
-                                                        <div class="space-y-1">
-                                                            <label class="block text-sm font-medium text-gray-700 mb-1">Select
-                                                                Date</label>
-                                                            <div class="relative">
-                                                                <input type="date" x-model="selectedDate"
-                                                                       class="w-full bg-white border border-gray-300 rounded-xl py-3 pl-4 pr-10 shadow-sm focus:ring-2 focus:ring-primary focus:border-primary transition"/>
-                                                                <span
-                                                                    class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">📅</span>
+                                                        <!-- Dynamic Date Picker -->
+                                                        <div class="space-y-3">
+                                                            <div class="flex items-center justify-between">
+                                                                <label class="block text-sm font-semibold text-gray-800">Select Date</label>
+                                                                <span class="text-xs font-medium text-gray-500" x-show="selectedDate" x-text="formatDate(selectedDate)"></span>
+                                                            </div>
+
+                                                            <div class="flex overflow-x-auto gap-3 pb-2 snap-x hide-scrollbar">
+                                                                <!-- Date Pills -->
+                                                                <template x-for="day in next7Days" :key="day.date">
+                                                                    <button
+                                                                        type="button"
+                                                                        @click="selectedDate = day.date; priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour date')"
+                                                                        :class="selectedDate === day.date
+                                                                            ? 'border-gray-900 bg-gray-900 text-white shadow-md'
+                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-900'"
+                                                                        class="flex-shrink-0 flex flex-col items-center justify-center w-[4.5rem] h-[5.5rem] rounded-xl border transition-all snap-center">
+                                                                        <span class="text-[11px] uppercase font-semibold tracking-wider" :class="selectedDate === day.date ? 'text-gray-300' : 'text-gray-500'" x-text="day.dayName"></span>
+                                                                        <span class="text-2xl font-bold my-0.5" x-text="day.dayNumber"></span>
+                                                                        <span class="text-xs font-medium" :class="selectedDate === day.date ? 'text-gray-300' : 'text-gray-500'" x-text="day.monthName"></span>
+                                                                    </button>
+                                                                </template>
+
+                                                                <!-- Custom Native Date Picker Trigger -->
+                                                                <div :class="(!next7Days.some(d => d.date === selectedDate) && selectedDate) ? 'border-gray-900 bg-gray-900 text-white shadow-md' : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-900 hover:text-gray-900'"
+                                                                     class="flex-shrink-0 relative flex flex-col items-center justify-center w-[4.5rem] h-[5.5rem] rounded-xl border border-dashed transition-all snap-center overflow-hidden cursor-pointer group">
+                                                                    <svg class="w-6 h-6 mb-1 transition-colors"
+                                                                         :class="(!next7Days.some(d => d.date === selectedDate) && selectedDate) ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-900'"
+                                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                    </svg>
+                                                                    <span class="text-[11px] font-medium" x-text="getMoreDateText()"></span>
+                                                                    <!-- Hidden Native Input -->
+                                                                    <input
+                                                                        type="date"
+                                                                        x-model="selectedDate"
+                                                                        @change="priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour date')"
+                                                                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         </div>
 
                                                         <!-- Time Slots -->
-                                                        <div x-show="selectedDate">
-                                                            <label class="block text-sm font-medium text-gray-700 mb-1">Select
-                                                                Time</label>
+                                                        <div x-show="selectedDate" class="pt-2 border-t mt-4" x-transition>
+                                                            <label class="block text-sm font-semibold text-gray-800 mb-3">Available Times</label>
 
-                                                            <div class="grid grid-cols-3 gap-2">
+                                                            <div class="grid grid-cols-3 gap-3">
                                                                 <template x-for="time in availableTimes" :key="time">
                                                                     <button
-                                                                        @click="selectTime(time)"
+                                                                        @click="selectTime(time); priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour time')"
                                                                         :class="time === selectedTime
-                                                                    ? 'bg-primary text-white'
-                                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                                                                        class="p-2 rounded-lg text-sm font-medium transition">
+                                                                            ? 'border-gray-900 bg-gray-900 text-white shadow-md'
+                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-900'"
+                                                                        class="py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all flex items-center justify-center">
                                                                         <span x-text="time"></span>
                                                                     </button>
                                                                 </template>
@@ -400,31 +439,36 @@
                                                         </div>
 
                                                         <!-- Selection Result -->
-                                                        <div x-show="selectedTime"
-                                                             class="p-3 bg-green-50 border border-green-60 rounded-lg text-sm text-green-700">
-                                                            Tour Date: <span class="font-semibold"
-                                                                             x-text="formatDate(selectedDate)"></span>
-                                                            at
-                                                            <span
-                                                                class="font-semibold"
-                                                                x-text="selectedTime"></span>
+                                                        <div x-show="selectedDate && selectedTime" x-transition
+                                                             class="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center gap-4 text-sm text-gray-700">
+                                                            <div class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                                                <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                            </div>
+                                                            <div>
+                                                                <p class="font-medium text-gray-900 mb-0.5">Tour Schedule</p>
+                                                                <p><span x-text="formatDate(selectedDate)"></span> at <span class="font-semibold text-gray-900" x-text="selectedTime"></span></p>
+                                                            </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
-                                                <div class="space-y-2 mt-2" x-show="priceFormErrors.length>0">
+                                                <div class="space-y-2 mt-3" x-show="priceFormErrors.length>0">
                                                     <template x-for="error in priceFormErrors">
                                                         <p
-                                                            class="px-3 py-1 bg-red-50 border border-red-60 rounded text-sm text-red-700"
-                                                            x-text="error">
-
+                                                            class="px-3 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-red-700 flex items-center gap-2">
+                                                            <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                            <span x-text="error"></span>
                                                         </p>
                                                     </template>
                                                 </div>
 
                                                 <!-- Continue Button -->
                                                 <button @click="submitPriceForm()"
-                                                        class="mt-2 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition flex justify-around">
+                                                        class="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition flex justify-around shadow-sm hover:shadow-md">
                                                 <span>
                                                     €<span x-text="getTotalPrice()"></span>
                                                 </span>
@@ -435,7 +479,7 @@
 
                                             <div class="m-0 p-0" x-show="currentView=='personalInformation'"
                                                  x-ref="personalInformation">
-                                                <h2 class="text-sm   font-semibold text-gray-500 mb-6">Contact
+                                                <h2 class="text-sm font-semibold text-gray-500 mb-6">Contact
                                                     Details</h2>
 
                                                 <div class="space-y-5">
@@ -612,7 +656,6 @@
                                                         </button>
 
                                                         <!-- Pay Button (bigger) -->
-                                                        <!-- Pay Button (bigger) -->
                                                         <button @click="submitPersonalInfoFrom()"
                                                                 :disabled="isSubmitting"
                                                                 type="button"
@@ -691,6 +734,7 @@
                 additioanls: [],
                 selectedDate: '',
                 selectedTime: '',
+                next7Days: [],
                 availableTimes: [
                     '09:00 AM', '10:00 AM', '11:00 AM',
                     '12:00 PM', '01:00 PM', '02:00 PM',
@@ -710,6 +754,28 @@
 
                 priceFormErrors: [],
                 personalInformationError: [],
+
+                generateNextDays() {
+                    const days = [];
+                    const today = new Date();
+                    for(let i=0; i<14; i++) { // Generate 14 days for a nice scrollable timeline
+                        const date = new Date(today);
+                        date.setDate(today.getDate() + i);
+
+                        const y = date.getFullYear();
+                        const m = String(date.getMonth() + 1).padStart(2, '0');
+                        const d = String(date.getDate()).padStart(2, '0');
+                        const dateString = `${y}-${m}-${d}`;
+
+                        days.push({
+                            date: dateString,
+                            dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
+                            dayNumber: date.getDate(),
+                            monthName: date.toLocaleDateString('en-US', { month: 'short' })
+                        });
+                    }
+                    this.next7Days = days;
+                },
 
                 setTour(data) {
                     this.tour = data;
@@ -740,8 +806,23 @@
                     });
                     return this.totalPrice.toFixed(2);
                 },
+
+                getMoreDateText() {
+                    if (!this.selectedDate) return 'More';
+                    const isInData = this.next7Days.some(d => d.date === this.selectedDate);
+                    if (isInData) return 'More';
+
+                    try {
+                        const [y, m, d] = this.selectedDate.split('-');
+                        const dateObj = new Date(`${y}-${m}-${d}`);
+                        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    } catch(e) {
+                        return 'More';
+                    }
+                },
+
                 formatDate(dateStr) {
-                    console.log(dateStr);
+                    if (!dateStr) return '';
                     const [year, month, day] = dateStr.split('-');
                     const dateObj = new Date(`${year}-${month}-${day}`);
 
@@ -821,7 +902,7 @@
                         return false;
                     }
                     else if (!phoneRegex.test(this.contactFrom.phone.replace(/\s|-/g, ''))) {
-                        this.personalInformationError.phone = 'Enter a valid international phone number.';
+                        this.personalInformationError.phone = 'Enter a valid international phone number with country code.';
                         return false;
                     }
                     else {
