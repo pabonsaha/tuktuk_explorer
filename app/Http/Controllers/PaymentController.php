@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\BookingConfirmationMail;
 use App\Models\Booking;
 use App\Service\StripeService;
+use Exception;
 use Illuminate\Http\Request;
 use App\Exceptions;
 use Illuminate\Support\Facades\Mail;

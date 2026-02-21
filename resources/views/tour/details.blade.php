@@ -814,15 +814,17 @@
                 },
 
                 validatePhone() {
-                    const phoneRegex = /^[0-9]{10,15}$/;
+                    const phoneRegex = /^\+?[1-9]\d{7,14}$/;
 
                     if (!this.contactFrom.phone || this.contactFrom.phone.trim() === '') {
                         this.personalInformationError.phone = 'This field is required.';
                         return false;
-                    } else if (!phoneRegex.test(this.contactFrom.phone)) {
-                        this.personalInformationError.phone = 'Enter a valid phone number.';
+                    }
+                    else if (!phoneRegex.test(this.contactFrom.phone.replace(/\s|-/g, ''))) {
+                        this.personalInformationError.phone = 'Enter a valid international phone number.';
                         return false;
-                    } else {
+                    }
+                    else {
                         delete this.personalInformationError.phone;
                         return true;
                     }
@@ -837,6 +839,7 @@
                         return true;
                     }
                 },
+
                 submitPersonalInfoFrom() {
                     if (this.validateField('fullName') && this.validateEmail() && this.validateField('country') && this.validatePhone('phone') && this.validateAgreement('termsCancellation') && this.validateAgreement('termsBooking')) {
 
