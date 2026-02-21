@@ -301,7 +301,7 @@
                                                         <div
                                                             class="border-2 rounded-xl p-4 cursor-pointer transition-all duration-200"
                                                             @click="setHour({{$hour}})"
-                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-primary ring-1 ring-primary' : 'border-gray-200 hover:border-orange-300'"
+                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-primary' : 'border-gray-200 hover:border-orange-400'"
                                                         >
                                                             <h3 class="font-bold mb-1"
                                                                 :class="selectedhour?.id === {{$hour->id}} ? 'text-primary' : 'text-gray-900'">{{$hour->title}}</h3>
