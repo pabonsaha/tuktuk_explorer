@@ -246,7 +246,7 @@
                                 </div>
                             </div>
 
-                            <!-- Extra Services -->
+                            <!-- Meeting Point -->
                             <div class="bg-white rounded-lg p-6 mb-6">
                                 <h2 class="text-2xl font-bold mb-6">Meeting Point</h2>
                                 <div class="grid md:grid-cols-2 gap-6">
@@ -299,9 +299,9 @@
                                                     <h2 class="font-bold text-gray-500 text-sm">Options</h2>
                                                     @foreach($tour->hours as $hour)
                                                         <div
-                                                            class="border-2 rounded-xl p-4 cursor-pointer hover:border-primary transition"
+                                                            class="border-2 rounded-xl p-4 cursor-pointer hover:border-red-600 transition"
                                                             @click="setHour({{$hour}})"
-                                                            :class="{ 'border-primary': selectedhour?.id === {{$hour->id}} }"
+                                                            :class="{ 'border-red-600': selectedhour?.id === {{$hour->id}} }"
                                                         >
                                                             <h3 class="font-bold mb-1">{{$hour->title}}</h3>
                                                             <p class="text-xs text-gray-600 leading-relaxed line-clamp-4">{{$hour->description}}</p>
@@ -327,7 +327,7 @@
                                                                disabled
                                                                x-model="seletedPassenger">
                                                         <button @click="seletedPassenger++"
-                                                                class="bg-primary hover:bg-opacity-90 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                class="bg-red-600 hover:bg-red-700 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                             +
                                                         </button>
                                                     </div>
@@ -355,7 +355,7 @@
                                                                        disabled
                                                                        x-model="addition.count">
                                                                 <button @click="addition.count++"
-                                                                        class="bg-primary hover:bg-opacity-90 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                        class="bg-red-600 hover:bg-red-700 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                                     +
                                                                 </button>
                                                             </div>
@@ -415,7 +415,7 @@
                                                                                 @click="selectDate(date)"
                                                                                 :disabled="isPast(date)"
                                                                                 :class="{
-                                                                                'bg-gray-900 text-white font-bold shadow-md': isSelected(date),
+                                                                                'bg-red-600 text-white font-bold shadow-md': isSelected(date),
                                                                                 'text-gray-300 bg-gray-50 cursor-not-allowed': isPast(date) && !isSelected(date),
                                                                                 'text-gray-700 hover:bg-gray-100 hover:text-gray-900': !isSelected(date) && !isPast(date)
                                                                             }"
@@ -436,8 +436,8 @@
                                                                     <button
                                                                         @click="selectTime(time); priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour time')"
                                                                         :class="time === selectedTime
-                                                                            ? 'border-gray-900 bg-gray-900 text-white shadow-md'
-                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-900'"
+                                                                            ? 'border-red-600 bg-red-600 text-white shadow-md'
+                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-red-600'"
                                                                         class="py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all flex items-center justify-center">
                                                                         <span x-text="time"></span>
                                                                     </button>
@@ -475,11 +475,11 @@
 
                                                 <!-- Continue Button -->
                                                 <button @click="submitPriceForm()"
-                                                        class="mt-6 w-full bg-green-600 text-white rounded-xl py-3.5 font-semibold hover:bg-green-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md">
+                                                        class="mt-6 w-full bg-red-600 text-white rounded-lg py-3 font-medium hover:bg-red-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
                                                     <span class="text-lg">
                                                         €<span x-text="getTotalPrice()"></span>
                                                     </span>
-                                                    <span class="flex items-center gap-2">Continue <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                                                    <span class="flex items-center gap-2 font-medium">Continue <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                                                 </button>
                                             </div>
 
@@ -490,7 +490,7 @@
                                                     Details</h2>
 
                                                 <div class="space-y-5">
-                                                    <!-- First Name -->
+                                                    <!-- Full Name -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
                                                             Full name <span class="text-red-500">*</span>
@@ -598,7 +598,7 @@
                                                             <input
                                                                 type="checkbox"
                                                                 x-model="contactFrom.termsBooking"
-                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500 cursor-pointer"
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">booking terms</a> <span
@@ -613,7 +613,7 @@
                                                             <input
                                                                 type="checkbox"
                                                                 x-model="contactFrom.termsCancellation"
-                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500 cursor-pointer"
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">cancellation terms</a> <span
@@ -654,23 +654,22 @@
 
                                                     <!-- Submit Button (Optional) -->
                                                     <div class="pt-4 flex justify-between gap-3 mb-2">
-                                                        <!-- Back Button (smaller) -->
+                                                        <!-- Back Button -->
                                                         <button @click="currentView='priceView'"
                                                                 type="button"
                                                                 class="flex items-center gap-2 w-1/3 justify-center border border-gray-400
-                                                            text-gray-700 bg-white hover:bg-gray-100 font-medium py-3 rounded-lg transition duration-150">
+                                                            text-gray-700 bg-white hover:bg-gray-100 font-medium py-3 rounded-lg transition duration-150 h-[52px]">
                                                             ← Back
                                                         </button>
 
-                                                        <!-- Pay Button (bigger) -->
+                                                        <!-- Pay Button -->
                                                         <button @click="submitPersonalInfoFrom()"
                                                                 :disabled="isSubmitting"
                                                                 type="button"
-                                                                class="flex items-center gap-2 w-2/3 justify-around bg-green-700
-               hover:bg-green-600 text-white font-medium py-3 rounded-lg transition duration-150
+                                                                class="flex items-center gap-2 w-2/3 justify-around bg-red-600
+               hover:bg-red-700 text-white font-medium py-3 rounded-lg transition duration-150 h-[52px]
                disabled:bg-gray-400 disabled:cursor-not-allowed">
 
-                                                            <!-- Show loading spinner when submitting -->
                                                             <template x-if="isSubmitting">
                                                                 <svg class="animate-spin h-5 w-5 text-white"
                                                                      xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -683,25 +682,24 @@
                                                                 </svg>
                                                             </template>
 
-                                                            <!-- Show price when not submitting -->
                                                             <span x-show="!isSubmitting">
-        €<span x-text="getTotalPrice()"></span>
-    </span>
+                                                                €<span x-text="getTotalPrice()"></span>
+                                                            </span>
 
                                                             <span class="flex justify-center items-center gap-2">
-        <template x-if="!isSubmitting">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.5" stroke="currentColor"
-                 class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25
-                            2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25
-                            2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/>
-            </svg>
-        </template>
-        <span x-text="isSubmitting ? 'Processing...' : 'Pay →'"></span>
-    </span>
+                                                                <template x-if="!isSubmitting">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                         viewBox="0 0 24 24"
+                                                                         stroke-width="1.5" stroke="currentColor"
+                                                                         class="w-5 h-5">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                                              d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25
+                                                                                    2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25
+                                                                                    2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/>
+                                                                    </svg>
+                                                                </template>
+                                                                <span x-text="isSubmitting ? 'Processing...' : 'Pay →'"></span>
+                                                            </span>
                                                         </button>
                                                     </div>
 
@@ -807,7 +805,7 @@
                 prevMonth() {
                     let today = new Date();
                     if (this.year === today.getFullYear() && this.month === today.getMonth()) {
-                        return; // Prevent going to past months
+                        return;
                     }
 
                     if (this.month == 0) {
