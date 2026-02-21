@@ -327,7 +327,7 @@
                                                                disabled
                                                                x-model="seletedPassenger">
                                                         <button @click="seletedPassenger++"
-                                                                class="bg-red-600 hover:bg-red-700 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                class="text-orange-500 hover:text-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                             +
                                                         </button>
                                                     </div>
@@ -355,7 +355,7 @@
                                                                        disabled
                                                                        x-model="addition.count">
                                                                 <button @click="addition.count++"
-                                                                        class="bg-red-600 hover:bg-red-700 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                        class="bg-orange-600 hover:bg-orange-700 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                                     +
                                                                 </button>
                                                             </div>
@@ -464,8 +464,8 @@
                                                 <div class="space-y-2 mt-3" x-show="priceFormErrors.length>0">
                                                     <template x-for="error in priceFormErrors">
                                                         <p
-                                                            class="px-3 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-red-700 flex items-center gap-2">
-                                                            <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            class="px-3 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-orange-700 flex items-center gap-2">
+                                                            <svg class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                             </svg>
                                                             <span x-text="error"></span>
@@ -475,7 +475,7 @@
 
                                                 <!-- Continue Button -->
                                                 <button @click="submitPriceForm()"
-                                                        class="mt-6 w-full bg-red-600 text-white rounded-lg py-3 font-medium hover:bg-red-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
+                                                        class="mt-6 w-full  text-white rounded-lg py-3 font-medium bg-success-600 hover:bg-success-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
                                                     <span class="text-lg">
                                                         €<span x-text="getTotalPrice()"></span>
                                                     </span>
@@ -493,16 +493,16 @@
                                                     <!-- Full Name -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Full name <span class="text-red-500">*</span>
+                                                            Full name <span class="text-orange-500">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
                                                             x-model="contactFrom.fullName"
-                                                            :class="personalInformationError.fullName ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            :class="personalInformationError.fullName ? 'border-orange-500 focus:ring-orange-500 focus:border-orange-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter first name"
                                                         />
-                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.fullName"
                                                               x-text="personalInformationError.fullName"></span>
                                                     </div>
@@ -511,16 +511,16 @@
                                                     <!-- Email -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Email <span class="text-red-500">*</span>
+                                                            Email <span class="text-orange-500">*</span>
                                                         </label>
                                                         <input
                                                             type="email"
                                                             x-model="contactFrom.email"
-                                                            :class="personalInformationError.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            :class="personalInformationError.email ? 'border-orange-500 focus:ring-orange-500 focus:border-orange-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="someone@example.com"
                                                         />
-                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.email"
                                                               x-text="personalInformationError.email"></span>
                                                     </div>
@@ -528,17 +528,17 @@
                                                     <!-- Phone -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Mobile phone <span class="text-red-500">*</span>
+                                                            Mobile phone <span class="text-orange-500">*</span>
                                                         </label>
                                                         <input
                                                             type="tel"
                                                             x-model="contactFrom.phone"
 
-                                                            :class="personalInformationError.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            :class="personalInformationError.phone ? 'border-orange-500 focus:ring-orange-500 focus:border-orange-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter phone number"
                                                         />
-                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.phone"
                                                               x-text="personalInformationError.phone"></span>
                                                     </div>
@@ -546,12 +546,12 @@
                                                     <!-- Country -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Country <span class="text-red-500">*</span>
+                                                            Country <span class="text-orange-500">*</span>
                                                         </label>
                                                         <select
                                                             x-model="contactFrom.country"
 
-                                                            :class="personalInformationError.country ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
+                                                            :class="personalInformationError.country ? 'border-orange-500 focus:ring-orange-500 focus:border-orange-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 bg-white transition duration-150 focus:ring-2 focus:outline-none"
                                                         >
                                                             <option value="">Select country</option>
@@ -587,7 +587,7 @@
                                                             <option value="United Arab Emirates">United Arab Emirates
                                                             </option>
                                                         </select>
-                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.country"
                                                               x-text="personalInformationError.country"></span>
                                                     </div>
@@ -598,14 +598,14 @@
                                                             <input
                                                                 type="checkbox"
                                                                 x-model="contactFrom.termsBooking"
-                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500 cursor-pointer"
+                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-orange-600 focus:ring-2 focus:ring-orange-500 cursor-pointer"
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">booking terms</a> <span
-                                                                    class="text-red-500">*</span>
+                                                                    class="text-orange-500">*</span>
                         </span>
                                                         </label>
-                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.termsBooking"
                                                               x-text="personalInformationError.termsBooking"></span>
 
@@ -613,14 +613,14 @@
                                                             <input
                                                                 type="checkbox"
                                                                 x-model="contactFrom.termsCancellation"
-                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500 cursor-pointer"
+                                                                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-orange-600 focus:ring-2 focus:ring-orange-500 cursor-pointer"
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">cancellation terms</a> <span
-                                                                    class="text-red-500">*</span>
+                                                                    class="text-orange-500">*</span>
                         </span>
                                                         </label>
-                                                        <span class="text-sm text-red-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.termsCancellation"
                                                               x-text="personalInformationError.termsCancellation"></span>
                                                     </div>
@@ -666,7 +666,7 @@
                                                         <button @click="submitPersonalInfoFrom()"
                                                                 :disabled="isSubmitting"
                                                                 type="button"
-                                                                class="flex items-center gap-2 w-2/3 justify-around bg-red-600
+                                                                class="flex items-center gap-2 w-2/3 justify-around bg-success-600
                hover:bg-red-700 text-white font-medium py-3 rounded-lg transition duration-150 h-[52px]
                disabled:bg-gray-400 disabled:cursor-not-allowed">
 
