@@ -299,11 +299,11 @@
                                                     <h2 class="font-bold text-gray-500 text-sm">Options</h2>
                                                     @foreach($tour->hours as $hour)
                                                         <div
-                                                            class="border-2 rounded-xl p-4 cursor-pointer hover:border-red-600 transition"
+                                                            class="border-2 rounded-xl p-4 cursor-pointer transition-all duration-200"
                                                             @click="setHour({{$hour}})"
-                                                            :class="{ 'border-red-600': selectedhour?.id === {{$hour->id}} }"
+                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-orange-500 ring-1 ring-orange-500 bg-orange-50/30' : 'border-gray-200 hover:border-orange-300'"
                                                         >
-                                                            <h3 class="font-bold mb-1">{{$hour->title}}</h3>
+                                                            <h3 class="font-bold mb-1" :class="selectedhour?.id === {{$hour->id}} ? 'text-orange-600' : 'text-gray-900'">{{$hour->title}}</h3>
                                                             <p class="text-xs text-gray-600 leading-relaxed line-clamp-4">{{$hour->description}}</p>
                                                         </div>
                                                     @endforeach
@@ -371,7 +371,7 @@
                                                         <div class="space-y-3">
                                                             <div class="flex items-center justify-between">
                                                                 <label class="block text-sm font-semibold text-gray-800">Select Date</label>
-                                                                <span class="text-xs font-medium text-gray-500" x-show="selectedDate" x-text="formatDate(selectedDate)"></span>
+                                                                <span class="text-xs font-bold text-orange-600" x-show="selectedDate" x-text="formatDate(selectedDate)"></span>
                                                             </div>
 
                                                             <!-- Calendar Component -->
@@ -415,9 +415,9 @@
                                                                                 @click="selectDate(date)"
                                                                                 :disabled="isPast(date)"
                                                                                 :class="{
-                                                                                'bg-red-600 text-white font-bold shadow-md': isSelected(date),
+                                                                                'bg-orange-500 text-white font-bold shadow-md': isSelected(date),
                                                                                 'text-gray-300 bg-gray-50 cursor-not-allowed': isPast(date) && !isSelected(date),
-                                                                                'text-gray-700 hover:bg-gray-100 hover:text-gray-900': !isSelected(date) && !isPast(date)
+                                                                                'text-gray-700 hover:bg-orange-50 hover:text-orange-600': !isSelected(date) && !isPast(date)
                                                                             }"
                                                                                 class="h-10 w-full rounded-lg flex items-center justify-center text-sm font-medium transition-all focus:outline-none">
                                                                             <span x-text="date"></span>
@@ -436,8 +436,8 @@
                                                                     <button
                                                                         @click="selectTime(time); priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour time')"
                                                                         :class="time === selectedTime
-                                                                            ? 'border-red-600 bg-red-600 text-white shadow-md'
-                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-red-600'"
+                                                                            ? 'border-orange-500 bg-orange-500 text-white shadow-md'
+                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-orange-500 hover:text-orange-600'"
                                                                         class="py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all flex items-center justify-center">
                                                                         <span x-text="time"></span>
                                                                     </button>
@@ -447,15 +447,15 @@
 
                                                         <!-- Selection Result -->
                                                         <div x-show="selectedDate && selectedTime" x-transition
-                                                             class="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center gap-4 text-sm text-gray-700">
-                                                            <div class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center flex-shrink-0 shadow-sm">
-                                                                <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                             class="mt-4 p-4 bg-orange-50/50 border border-orange-100 rounded-xl flex items-center gap-4 text-sm text-gray-700">
+                                                            <div class="w-10 h-10 rounded-full bg-white border border-orange-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                                                <svg class="w-5 h-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                 </svg>
                                                             </div>
                                                             <div>
-                                                                <p class="font-medium text-gray-900 mb-0.5">Tour Schedule</p>
-                                                                <p><span x-text="formatDate(selectedDate)"></span> at <span class="font-semibold text-gray-900" x-text="selectedTime"></span></p>
+                                                                <p class="font-bold text-orange-800 mb-0.5">Tour Schedule</p>
+                                                                <p><span x-text="formatDate(selectedDate)"></span> at <span class="font-semibold text-orange-600" x-text="selectedTime"></span></p>
                                                             </div>
                                                         </div>
 
@@ -856,6 +856,7 @@
 
                 setHour(data) {
                     this.selectedhour = data;
+                    this.priceFormErrors = this.priceFormErrors.filter(e => e !== 'Please select Hour');
                 },
 
                 getPerPassengerPrice() {
