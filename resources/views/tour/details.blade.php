@@ -11,15 +11,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 0.5rem;
         }
-
-        /* Hide scrollbar for the horizontal date selector */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
     </style>
 @endpush
 {{--@dd($tour)--}}
@@ -293,7 +284,7 @@
                             <div class="lg:col-span-1">
                                 @if(!$tour->hours->isEmpty())
                                     <div class="sticky top-4" x-data="priceForm()"
-                                         x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});generateNextDays();">
+                                         x-init="setHour({{@$tour->hours[0]}});setTour({{$tour}});initCalendar();">
                                         <!-- Booking Card -->
                                         <!-- Tour Options Section -->
                                         <div class="max-w-md mx-auto p-4 space-y-4 border border-gray-400 rounded-xl">
@@ -319,7 +310,7 @@
                                                 </div>
 
                                                 <!-- Passenger Counter -->
-                                                <div class="flex items-center justify-between rounded-xl my-5 p-4">
+                                                <div class="flex items-center justify-between rounded-xl my-5 p-4 bg-white border shadow-sm">
                                                     <div>
                                                         <p class="font-semibold">Passenger</p>
                                                         <p class="text-xs text-gray-500 text-sm">from €<span
@@ -328,100 +319,116 @@
                                                     </div>
                                                     <div class="flex items-center space-x-3">
                                                         <button @click="if (seletedPassenger>1)seletedPassenger--"
-                                                                class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
+                                                                class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
                                                             −
                                                         </button>
-                                                        <input class="text-lg font-semibold w-8 text-center"
+                                                        <input class="text-lg font-semibold w-8 text-center bg-transparent"
                                                                name="passenger"
                                                                disabled
                                                                x-model="seletedPassenger">
                                                         <button @click="seletedPassenger++"
-                                                                class="bg-primary text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                class="bg-primary hover:bg-opacity-90 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                             +
                                                         </button>
                                                     </div>
                                                 </div>
 
                                                 <!-- Add-ons List -->
-                                                <div class="space-y-2 bg-gray-100 p-5 rounded-xl">
+                                                <div class="space-y-2 bg-gray-50 p-5 rounded-xl border border-gray-100">
 
                                                     <template x-for="addition in additioanls">
                                                         <div
-                                                            class="border rounded-xl p-4 flex items-center justify-between">
+                                                            class="bg-white border rounded-xl p-4 flex items-center justify-between shadow-sm">
                                                             <div>
-                                                                <p class="font-semibold text-sm"
+                                                                <p class="font-semibold text-sm text-gray-800"
                                                                    x-text="addition.title"></p>
-                                                                <p class="text-xs text-gray-500">from
+                                                                <p class="text-xs text-gray-500 mt-0.5">from
                                                                     €<span x-text="addition.price"></span></p>
                                                             </div>
                                                             <div class="flex items-center space-x-3">
                                                                 <button
                                                                     @click="if (addition.count>0)addition.count--"
-                                                                    class="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
+                                                                    class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
                                                                     −
                                                                 </button>
-                                                                <input class="text-lg font-semibold w-8 text-center"
+                                                                <input class="text-lg font-semibold w-8 text-center bg-transparent"
                                                                        disabled
                                                                        x-model="addition.count">
                                                                 <button @click="addition.count++"
-                                                                        class="bg-primary text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                        class="bg-primary hover:bg-opacity-90 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                                     +
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </template>
 
-
                                                 </div>
 
-                                                <div class="space-y-2 mt-4">
+                                                <div class="space-y-2 mt-6">
                                                     <div class="space-y-4">
 
-                                                        <!-- Dynamic Date Picker -->
+                                                        <!-- Dynamic Full-Month Calendar -->
                                                         <div class="space-y-3">
                                                             <div class="flex items-center justify-between">
                                                                 <label class="block text-sm font-semibold text-gray-800">Select Date</label>
                                                                 <span class="text-xs font-medium text-gray-500" x-show="selectedDate" x-text="formatDate(selectedDate)"></span>
                                                             </div>
 
-                                                            <div class="flex overflow-x-auto gap-3 pb-2 snap-x hide-scrollbar">
-                                                                <!-- Date Pills -->
-                                                                <template x-for="day in next7Days" :key="day.date">
-                                                                    <button
-                                                                        type="button"
-                                                                        @click="selectedDate = day.date; priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour date')"
-                                                                        :class="selectedDate === day.date
-                                                                            ? 'border-gray-900 bg-gray-900 text-white shadow-md'
-                                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-900'"
-                                                                        class="flex-shrink-0 flex flex-col items-center justify-center w-[4.5rem] h-[5.5rem] rounded-xl border transition-all snap-center">
-                                                                        <span class="text-[11px] uppercase font-semibold tracking-wider" :class="selectedDate === day.date ? 'text-gray-300' : 'text-gray-500'" x-text="day.dayName"></span>
-                                                                        <span class="text-2xl font-bold my-0.5" x-text="day.dayNumber"></span>
-                                                                        <span class="text-xs font-medium" :class="selectedDate === day.date ? 'text-gray-300' : 'text-gray-500'" x-text="day.monthName"></span>
+                                                            <!-- Calendar Component -->
+                                                            <div class="bg-white border rounded-xl p-4 shadow-sm select-none">
+                                                                <!-- Calendar Header -->
+                                                                <div class="flex items-center justify-between mb-4">
+                                                                    <button type="button"
+                                                                            @click="prevMonth()"
+                                                                            :disabled="month === new Date().getMonth() && year === new Date().getFullYear()"
+                                                                            :class="{'opacity-30 cursor-not-allowed': month === new Date().getMonth() && year === new Date().getFullYear(), 'hover:bg-gray-100': !(month === new Date().getMonth() && year === new Date().getFullYear())}"
+                                                                            class="p-2 rounded-full transition duration-150">
+                                                                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                                                        </svg>
                                                                     </button>
-                                                                </template>
+                                                                    <div class="font-bold text-gray-800 text-sm uppercase tracking-wide" x-text="monthNames[month] + ' ' + year"></div>
+                                                                    <button type="button" @click="nextMonth()" class="p-2 hover:bg-gray-100 rounded-full transition duration-150">
+                                                                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
 
-                                                                <!-- Custom Native Date Picker Trigger -->
-                                                                <div :class="(!next7Days.some(d => d.date === selectedDate) && selectedDate) ? 'border-gray-900 bg-gray-900 text-white shadow-md' : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-900 hover:text-gray-900'"
-                                                                     class="flex-shrink-0 relative flex flex-col items-center justify-center w-[4.5rem] h-[5.5rem] rounded-xl border border-dashed transition-all snap-center overflow-hidden cursor-pointer group">
-                                                                    <svg class="w-6 h-6 mb-1 transition-colors"
-                                                                         :class="(!next7Days.some(d => d.date === selectedDate) && selectedDate) ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-900'"
-                                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                                    </svg>
-                                                                    <span class="text-[11px] font-medium" x-text="getMoreDateText()"></span>
-                                                                    <!-- Hidden Native Input -->
-                                                                    <input
-                                                                        type="date"
-                                                                        x-model="selectedDate"
-                                                                        @change="priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour date')"
-                                                                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                                    />
+                                                                <!-- Days of Week -->
+                                                                <div class="grid grid-cols-7 gap-1 mb-2">
+                                                                    <template x-for="day in dayNames" :key="day">
+                                                                        <div class="text-center text-xs font-semibold text-gray-400 uppercase tracking-wider" x-text="day"></div>
+                                                                    </template>
+                                                                </div>
+
+                                                                <!-- Dates Grid -->
+                                                                <div class="grid grid-cols-7 gap-1">
+                                                                    <!-- Blank Days (Offset) -->
+                                                                    <template x-for="blank in blankdays" :key="'blank-'+blank">
+                                                                        <div class="h-10 w-full"></div>
+                                                                    </template>
+
+                                                                    <!-- Actual Days -->
+                                                                    <template x-for="date in no_of_days" :key="'date-'+date">
+                                                                        <button type="button"
+                                                                                @click="selectDate(date)"
+                                                                                :disabled="isPast(date)"
+                                                                                :class="{
+                                                                                'bg-gray-900 text-white font-bold shadow-md': isSelected(date),
+                                                                                'text-gray-300 bg-gray-50 cursor-not-allowed': isPast(date) && !isSelected(date),
+                                                                                'text-gray-700 hover:bg-gray-100 hover:text-gray-900': !isSelected(date) && !isPast(date)
+                                                                            }"
+                                                                                class="h-10 w-full rounded-lg flex items-center justify-center text-sm font-medium transition-all focus:outline-none">
+                                                                            <span x-text="date"></span>
+                                                                        </button>
+                                                                    </template>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <!-- Time Slots -->
-                                                        <div x-show="selectedDate" class="pt-2 border-t mt-4" x-transition>
+                                                        <div x-show="selectedDate" class="pt-4 mt-2" x-transition>
                                                             <label class="block text-sm font-semibold text-gray-800 mb-3">Available Times</label>
 
                                                             <div class="grid grid-cols-3 gap-3">
@@ -468,11 +475,11 @@
 
                                                 <!-- Continue Button -->
                                                 <button @click="submitPriceForm()"
-                                                        class="mt-4 w-full bg-green-600 text-white rounded-xl py-3 font-semibold hover:bg-green-700 transition flex justify-around shadow-sm hover:shadow-md">
-                                                <span>
-                                                    €<span x-text="getTotalPrice()"></span>
-                                                </span>
-                                                    <span>Continue →</span>
+                                                        class="mt-6 w-full bg-green-600 text-white rounded-xl py-3.5 font-semibold hover:bg-green-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md">
+                                                    <span class="text-lg">
+                                                        €<span x-text="getTotalPrice()"></span>
+                                                    </span>
+                                                    <span class="flex items-center gap-2">Continue <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                                                 </button>
                                             </div>
 
@@ -727,19 +734,26 @@
             return {
                 currentView: 'priceView',
                 selectedhour: null,
-                isSubmitting: false, // Add loading state
+                isSubmitting: false,
                 seletedPassenger: 1,
                 totalPassengerPrice: null,
                 tour: null,
                 additioanls: [],
                 selectedDate: '',
                 selectedTime: '',
-                next7Days: [],
                 availableTimes: [
                     '09:00 AM', '10:00 AM', '11:00 AM',
                     '12:00 PM', '01:00 PM', '02:00 PM',
                     '03:00 PM', '04:00 PM', '05:00 PM'
                 ],
+
+                // Calendar Properties
+                month: new Date().getMonth(),
+                year: new Date().getFullYear(),
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                blankdays: [],
+                no_of_days: [],
 
                 totalPrice: null,
 
@@ -755,26 +769,79 @@
                 priceFormErrors: [],
                 personalInformationError: [],
 
-                generateNextDays() {
-                    const days = [];
-                    const today = new Date();
-                    for(let i=0; i<14; i++) { // Generate 14 days for a nice scrollable timeline
-                        const date = new Date(today);
-                        date.setDate(today.getDate() + i);
+                initCalendar() {
+                    let today = new Date();
+                    this.month = today.getMonth();
+                    this.year = today.getFullYear();
+                    this.getNoOfDays();
+                },
 
-                        const y = date.getFullYear();
-                        const m = String(date.getMonth() + 1).padStart(2, '0');
-                        const d = String(date.getDate()).padStart(2, '0');
-                        const dateString = `${y}-${m}-${d}`;
+                getNoOfDays() {
+                    let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+                    let dayOfWeek = new Date(this.year, this.month).getDay();
 
-                        days.push({
-                            date: dateString,
-                            dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
-                            dayNumber: date.getDate(),
-                            monthName: date.toLocaleDateString('en-US', { month: 'short' })
-                        });
+                    let blankdaysArray = [];
+                    for (var i = 1; i <= dayOfWeek; i++) {
+                        blankdaysArray.push(i);
                     }
-                    this.next7Days = days;
+
+                    let daysArray = [];
+                    for (var i = 1; i <= daysInMonth; i++) {
+                        daysArray.push(i);
+                    }
+
+                    this.blankdays = blankdaysArray;
+                    this.no_of_days = daysArray;
+                },
+
+                nextMonth() {
+                    if (this.month == 11) {
+                        this.month = 0;
+                        this.year++;
+                    } else {
+                        this.month++;
+                    }
+                    this.getNoOfDays();
+                },
+
+                prevMonth() {
+                    let today = new Date();
+                    if (this.year === today.getFullYear() && this.month === today.getMonth()) {
+                        return; // Prevent going to past months
+                    }
+
+                    if (this.month == 0) {
+                        this.month = 11;
+                        this.year--;
+                    } else {
+                        this.month--;
+                    }
+                    this.getNoOfDays();
+                },
+
+                isPast(date) {
+                    let today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    let compareDate = new Date(this.year, this.month, date);
+                    return compareDate < today;
+                },
+
+                selectDate(date) {
+                    if (this.isPast(date)) return;
+                    let selectedDateObj = new Date(this.year, this.month, date);
+                    const y = selectedDateObj.getFullYear();
+                    const m = String(selectedDateObj.getMonth() + 1).padStart(2, '0');
+                    const d = String(selectedDateObj.getDate()).padStart(2, '0');
+
+                    this.selectedDate = `${y}-${m}-${d}`;
+                    this.priceFormErrors = this.priceFormErrors.filter(e => e !== 'Please select tour date');
+                },
+
+                isSelected(date) {
+                    const y = this.year;
+                    const m = String(this.month + 1).padStart(2, '0');
+                    const d = String(date).padStart(2, '0');
+                    return this.selectedDate === `${y}-${m}-${d}`;
                 },
 
                 setTour(data) {
@@ -788,16 +855,20 @@
                         });
                     });
                 },
+
                 setHour(data) {
                     this.selectedhour = data;
                 },
+
                 getPerPassengerPrice() {
                     this.totalPassengerPrice = Math.ceil(this.seletedPassenger / this.selectedhour?.number_of_people) * this.selectedhour.price;
                     return (this.totalPassengerPrice / this.seletedPassenger).toFixed(2);
                 },
+
                 selectTime(time) {
                     this.selectedTime = time
                 },
+
                 getTotalPrice() {
                     this.totalPrice = this.totalPassengerPrice;
                     this.additioanls.forEach(extra => {
@@ -805,20 +876,6 @@
                             this.totalPrice += (extra.price * extra.count);
                     });
                     return this.totalPrice.toFixed(2);
-                },
-
-                getMoreDateText() {
-                    if (!this.selectedDate) return 'More';
-                    const isInData = this.next7Days.some(d => d.date === this.selectedDate);
-                    if (isInData) return 'More';
-
-                    try {
-                        const [y, m, d] = this.selectedDate.split('-');
-                        const dateObj = new Date(`${y}-${m}-${d}`);
-                        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                    } catch(e) {
-                        return 'More';
-                    }
                 },
 
                 formatDate(dateStr) {
@@ -869,6 +926,7 @@
                         }
                     }, 100);
                 },
+
                 validateField(field) {
                     if (!this.contactFrom[field] || this.contactFrom[field].trim() === '') {
                         this.personalInformationError[field] = 'This field is required.';
@@ -924,7 +982,7 @@
                 submitPersonalInfoFrom() {
                     if (this.validateField('fullName') && this.validateEmail() && this.validateField('country') && this.validatePhone('phone') && this.validateAgreement('termsCancellation') && this.validateAgreement('termsBooking')) {
 
-                        this.isSubmitting = true; // Start loading
+                        this.isSubmitting = true;
 
                         const formData = new FormData();
                         formData.append('contact_form', JSON.stringify(this.contactFrom));
@@ -953,7 +1011,7 @@
                                 if (data.success && data.redirect_url) {
                                     window.location.href = data.redirect_url;
                                 } else {
-                                    this.isSubmitting = false; // Stop loading on error
+                                    this.isSubmitting = false;
                                     if (typeof toastr !== 'undefined') {
                                         toastr.error("Something went wrong");
                                     } else {
@@ -962,7 +1020,7 @@
                                 }
                             })
                             .catch(error => {
-                                this.isSubmitting = false; // Stop loading on error
+                                this.isSubmitting = false;
                                 console.error('Error:', error);
                                 if (typeof toastr !== 'undefined') {
                                     toastr.error("Something went wrong");
