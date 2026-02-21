@@ -109,7 +109,7 @@
                                     </div>
 
                                     <button
-                                        class="bg-orange-500 font-semibold hover:underline mt-2"
+                                        class="text-orange-500 font-semibold hover:underline mt-2"
                                         x-show="readMore"
                                         @click="readMore = false">
                                         Read more
@@ -167,7 +167,7 @@
                                 <ul class="space-y-3">
                                     @foreach(json_decode($tour->tour_highlights) as $highLight)
                                         <li class="flex items-start gap-3">
-                                            <svg class="w-5 h-5 bg-orange-500 mt-0.5 flex-shrink-0" fill="none"
+                                            <svg class="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" fill="none"
                                                  stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M5 13l4 4L19 7"></path>
@@ -256,7 +256,7 @@
 
                                                 <div
                                                     class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                                                    <svg class="w-6 h-6 bg-orange-500" fill="none"
+                                                    <svg class="w-6 h-6 text-orange-500" fill="none"
                                                          stroke="currentColor"
                                                          viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -301,10 +301,10 @@
                                                         <div
                                                             class="border-2 rounded-xl p-4 cursor-pointer transition-all duration-200"
                                                             @click="setHour({{$hour}})"
-                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-orange-500 ring-1 ring-orange-500 bg-orange-50/30' : 'border-gray-200 hover:border-orange-300'"
+                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-b-orange-500 ring-1 ring-orange-500 bg-orange-50/30' : 'border-gray-200 hover:border-orange-300'"
                                                         >
                                                             <h3 class="font-bold mb-1"
-                                                                :class="selectedhour?.id === {{$hour->id}} ? 'bg-orange-600' : 'text-gray-900'">{{$hour->title}}</h3>
+                                                                :class="selectedhour?.id === {{$hour->id}} ? 'bg-orange-500' : 'text-gray-900'">{{$hour->title}}</h3>
                                                             <p class="text-xs text-gray-600 leading-relaxed line-clamp-4">{{$hour->description}}</p>
                                                         </div>
                                                     @endforeach
@@ -541,7 +541,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter first name"
                                                         />
-                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.fullName"
                                                               x-text="personalInformationError.fullName"></span>
                                                     </div>
@@ -550,7 +550,7 @@
                                                     <!-- Email -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Email <span class="text-orange-600-500">*</span>
+                                                            Email <span class="text-orange-500">*</span>
                                                         </label>
                                                         <input
                                                             type="email"
@@ -559,7 +559,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="someone@example.com"
                                                         />
-                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.email"
                                                               x-text="personalInformationError.email"></span>
                                                     </div>
@@ -577,7 +577,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter phone number"
                                                         />
-                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.phone"
                                                               x-text="personalInformationError.phone"></span>
                                                     </div>
@@ -626,7 +626,7 @@
                                                             <option value="United Arab Emirates">United Arab Emirates
                                                             </option>
                                                         </select>
-                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.country"
                                                               x-text="personalInformationError.country"></span>
                                                     </div>
@@ -659,7 +659,7 @@
                                                                     class="text-orange-500">*</span>
                         </span>
                                                         </label>
-                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.termsCancellation"
                                                               x-text="personalInformationError.termsCancellation"></span>
                                                     </div>
