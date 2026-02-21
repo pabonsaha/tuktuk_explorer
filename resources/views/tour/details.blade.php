@@ -359,7 +359,7 @@
                                                                     disabled
                                                                     x-model="addition.count">
                                                                 <button @click="addition.count++"
-                                                                        class="bg-orange-600 hover:bg-orange-700 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                        class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                                     +
                                                                 </button>
                                                             </div>
@@ -509,7 +509,7 @@
 
                                                 <!-- Continue Button -->
                                                 <button @click="submitPriceForm()"
-                                                        class="mt-6 w-full  text-white rounded-lg py-3 font-medium bg-success-600 hover:bg-success-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
+                                                        class="mt-6 w-full  text-white rounded-lg py-3 font-medium bg-green-500 hover:bg-green-600 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
                                                     <span class="text-lg">
                                                         €<span x-text="getTotalPrice()"></span>
                                                     </span>
@@ -705,8 +705,8 @@
                                                         <button @click="submitPersonalInfoFrom()"
                                                                 :disabled="isSubmitting"
                                                                 type="button"
-                                                                class="flex items-center gap-2 w-2/3 justify-around bg-success-600
-               hover:bg-red-700 text-white font-medium py-3 rounded-lg transition duration-150 h-[52px]
+                                                                class="flex items-center gap-2 w-2/3 justify-around bg-green-600
+               hover:bg-green-700 text-white font-medium py-3 rounded-lg transition duration-150 h-[52px]
                disabled:bg-gray-400 disabled:cursor-not-allowed">
 
                                                             <template x-if="isSubmitting">
