@@ -532,7 +532,7 @@
                                                     <!-- Full Name -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Full name <span class="bg-orange-500">*</span>
+                                                            Full name <span class="text-orange-500">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
@@ -541,7 +541,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter first name"
                                                         />
-                                                        <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.fullName"
                                                               x-text="personalInformationError.fullName"></span>
                                                     </div>
@@ -550,7 +550,7 @@
                                                     <!-- Email -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Email <span class="bg-orange-500">*</span>
+                                                            Email <span class="text-orange-600-500">*</span>
                                                         </label>
                                                         <input
                                                             type="email"
@@ -559,7 +559,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="someone@example.com"
                                                         />
-                                                        <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.email"
                                                               x-text="personalInformationError.email"></span>
                                                     </div>
@@ -567,7 +567,7 @@
                                                     <!-- Phone -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Mobile phone <span class="bg-orange-500">*</span>
+                                                            Mobile phone <span class="text-orange-500">*</span>
                                                         </label>
                                                         <input
                                                             type="tel"
@@ -577,7 +577,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter phone number"
                                                         />
-                                                        <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.phone"
                                                               x-text="personalInformationError.phone"></span>
                                                     </div>
@@ -585,7 +585,7 @@
                                                     <!-- Country -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Country <span class="bg-orange-500">*</span>
+                                                            Country <span class="text-orange-500">*</span>
                                                         </label>
                                                         <select
                                                             x-model="contactFrom.country"
@@ -626,7 +626,7 @@
                                                             <option value="United Arab Emirates">United Arab Emirates
                                                             </option>
                                                         </select>
-                                                        <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.country"
                                                               x-text="personalInformationError.country"></span>
                                                     </div>
@@ -641,7 +641,7 @@
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">booking terms</a> <span
-                                                                    class="bg-orange-500">*</span>
+                                                                    class="text-orange-500">*</span>
                         </span>
                                                         </label>
                                                         <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
@@ -656,10 +656,10 @@
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">cancellation terms</a> <span
-                                                                    class="bg-orange-500">*</span>
+                                                                    class="text-orange-500">*</span>
                         </span>
                                                         </label>
-                                                        <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-orange-600 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.termsCancellation"
                                                               x-text="personalInformationError.termsCancellation"></span>
                                                     </div>
