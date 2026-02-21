@@ -301,10 +301,10 @@
                                                         <div
                                                             class="border-2 rounded-xl p-4 cursor-pointer transition-all duration-200"
                                                             @click="setHour({{$hour}})"
-                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-orange-500 ring-1 ring-orange-500 bg-orange-50/30' : 'border-gray-200 hover:border-orange-300'"
+                                                            :class="selectedhour?.id === {{$hour->id}} ? 'border-primary ring-1 ring-primary bg-orange-50/30' : 'border-gray-200 hover:border-orange-300'"
                                                         >
                                                             <h3 class="font-bold mb-1"
-                                                                :class="selectedhour?.id === {{$hour->id}} ? 'text-orange-500' : 'text-gray-900'">{{$hour->title}}</h3>
+                                                                :class="selectedhour?.id === {{$hour->id}} ? 'text-primary' : 'text-gray-900'">{{$hour->title}}</h3>
                                                             <p class="text-xs text-gray-600 leading-relaxed line-clamp-4">{{$hour->description}}</p>
                                                         </div>
                                                     @endforeach
