@@ -346,29 +346,29 @@
 
                                                         <template x-for="addition in additionals">
                                                             <div
-                                                                class="bg-white border rounded-xl p-4 flex items-center justify-between shadow-sm">
+                                                                class="bg-white border rounded-xl p-3 flex items-center justify-between shadow-sm">
                                                                 <div>
-                                                                    <p class="font-semibold text-sm text-gray-800"
+                                                                    <p class="font-semibold text-xs text-gray-800"
                                                                        x-text="addition.title"></p>
-                                                                    <p class="text-xs text-gray-500 mt-0.5">from
+                                                                    <p class="text-[11px] text-gray-500 mt-0.5">from
                                                                         €<span x-text="addition.price"></span></p>
                                                                 </div>
-                                                                <div class="flex items-center space-x-3">
+                                                                <div class="flex items-center space-x-2">
                                                                     <button
                                                                         @click="if (addition.count>0)addition.count--"
-                                                                        class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
+                                                                        class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-7 h-7 flex items-center justify-center text-base cursor-pointer">
                                                                         −
                                                                     </button>
                                                                     <input
-                                                                        class="text-lg font-semibold w-8 text-center bg-transparent"
+                                                                        class="text-sm font-semibold w-7 text-center bg-transparent"
                                                                         disabled
                                                                         x-model="addition.count">
-                                                                    <button @click="addition.count++"
-                                                                            class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
-                                                                        +
-                                                                    </button>
-                                                                </div>
+                                                                <button @click="addition.count++"
+                                                                        class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-7 h-7 flex items-center cursor-pointer justify-center text-base">
+                                                                    +
+                                                                </button>
                                                             </div>
+                                                        </div>
                                                         </template>
 
                                                     </div>
