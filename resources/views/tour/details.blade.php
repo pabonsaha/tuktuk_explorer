@@ -443,9 +443,9 @@
                                                                                 @click="selectDate(date)"
                                                                                 :disabled="isPast(date)"
                                                                                 :class="{
-                                                                                'bg-orange-500 text-white font-bold shadow-md': isSelected(date),
+                                                                                'bg-primary text-white font-bold shadow-md': isSelected(date),
                                                                                 'text-gray-300 bg-gray-50 cursor-not-allowed': isPast(date) && !isSelected(date),
-                                                                                'text-gray-700 hover:bg-orange-50 hoverbg-orange-600': !isSelected(date) && !isPast(date)
+                                                                                'text-gray-700  hover:bg-orange-600': !isSelected(date) && !isPast(date)
                                                                             }"
                                                                                 class="h-10 w-full rounded-lg flex items-center justify-center text-sm font-medium transition-all focus:outline-none">
                                                                             <span x-text="date"></span>
@@ -466,7 +466,7 @@
                                                                     <button
                                                                         @click="selectTime(time); priceFormErrors = priceFormErrors.filter(e => e !== 'Please select tour time')"
                                                                         :class="time === selectedTime
-                                                                            ? 'border-orange-500 bg-orange-500 text-white shadow-md'
+                                                                            ? 'border-orange-500 bg-primary text-white shadow-md'
                                                                             : 'border-gray-200 bg-white text-gray-700 hover:border-orange-500 hoverbg-orange-600'"
                                                                         class="py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all flex items-center justify-center">
                                                                         <span x-text="time"></span>
@@ -502,7 +502,7 @@
                                                     <template x-for="error in priceFormErrors">
                                                         <p
                                                             class="px-3 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium bg-orange-700 flex items-center gap-2">
-                                                            <svg class="w-4 h-4 bg-orange-500" fill="none"
+                                                            <svg class="w-4 h-4 bg-primary" fill="none"
                                                                  viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                       stroke-width="2"
@@ -515,7 +515,7 @@
 
                                                 <!-- Continue Button -->
                                                 <button @click="submitPriceForm()"
-                                                        class="mt-6 w-full  text-white rounded-lg py-3 font-medium bg-green-500 hover:bg-green-600 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
+                                                        class="mt-6 w-full  text-white rounded-lg py-3 font-medium bg-green-600 hover:bg-green-700 transition flex items-center justify-between px-6 shadow-sm hover:shadow-md h-[52px]">
                                                     <span class="text-lg">
                                                         €<span x-text="getTotalPrice()"></span>
                                                     </span>
