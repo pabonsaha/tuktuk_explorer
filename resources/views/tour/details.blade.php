@@ -344,7 +344,7 @@
                                                     <div
                                                         class="space-y-2 bg-gray-50 p-5 rounded-xl border border-gray-100">
 
-                                                        <template x-for="addition in additional">
+                                                        <template x-for="addition in additionals">
                                                             <div
                                                                 class="bg-white border rounded-xl p-4 flex items-center justify-between shadow-sm">
                                                                 <div>
