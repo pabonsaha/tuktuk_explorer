@@ -587,67 +587,64 @@
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
                                                             Country <span class="text-orange-500">*</span>
                                                         </label>
-                                                        <input
-                                                            type="text"
-                                                            list="country-list"
+                                                        <select
                                                             x-model="contactFrom.country"
-                                                            placeholder="Select or search country"
                                                             :class="personalInformationError.country ? 'border-orange-500 focus:ring-orange-500 focus:border-orange-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'"
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 bg-white transition duration-150 focus:ring-2 focus:outline-none"
-                                                        />
-                                                        <datalist id="country-list">
-                                                            <option value="Argentina"></option>
-                                                            <option value="Australia"></option>
-                                                            <option value="Austria"></option>
-                                                            <option value="Belgium"></option>
-                                                            <option value="Brazil"></option>
-                                                            <option value="Canada"></option>
-                                                            <option value="Chile"></option>
-                                                            <option value="China"></option>
-                                                            <option value="Colombia"></option>
-                                                            <option value="Czech Republic"></option>
-                                                            <option value="Denmark"></option>
-                                                            <option value="Egypt"></option>
-                                                            <option value="Finland"></option>
-                                                            <option value="France"></option>
-                                                            <option value="Germany"></option>
-                                                            <option value="Greece"></option>
-                                                            <option value="Hong Kong"></option>
-                                                            <option value="India"></option>
-                                                            <option value="Indonesia"></option>
-                                                            <option value="Ireland"></option>
-                                                            <option value="Israel"></option>
-                                                            <option value="Italy"></option>
-                                                            <option value="Japan"></option>
-                                                            <option value="Kenya"></option>
-                                                            <option value="Malaysia"></option>
-                                                            <option value="Mexico"></option>
-                                                            <option value="Morocco"></option>
-                                                            <option value="Netherlands"></option>
-                                                            <option value="New Zealand"></option>
-                                                            <option value="Nigeria"></option>
-                                                            <option value="Norway"></option>
-                                                            <option value="Pakistan"></option>
-                                                            <option value="Peru"></option>
-                                                            <option value="Philippines"></option>
-                                                            <option value="Poland"></option>
-                                                            <option value="Portugal"></option>
-                                                            <option value="Qatar"></option>
-                                                            <option value="Saudi Arabia"></option>
-                                                            <option value="Singapore"></option>
-                                                            <option value="South Africa"></option>
-                                                            <option value="South Korea"></option>
-                                                            <option value="Spain"></option>
-                                                            <option value="Sri Lanka"></option>
-                                                            <option value="Sweden"></option>
-                                                            <option value="Switzerland"></option>
-                                                            <option value="Thailand"></option>
-                                                            <option value="Turkey"></option>
-                                                            <option value="United Arab Emirates"></option>
-                                                            <option value="United Kingdom"></option>
-                                                            <option value="United States"></option>
-                                                            <option value="Vietnam"></option>
-                                                        </datalist>
+                                                        >
+                                                            <option value="">Select country</option>
+                                                            <option value="Argentina">Argentina</option>
+                                                            <option value="Australia">Australia</option>
+                                                            <option value="Austria">Austria</option>
+                                                            <option value="Belgium">Belgium</option>
+                                                            <option value="Brazil">Brazil</option>
+                                                            <option value="Canada">Canada</option>
+                                                            <option value="Chile">Chile</option>
+                                                            <option value="China">China</option>
+                                                            <option value="Colombia">Colombia</option>
+                                                            <option value="Czech Republic">Czech Republic</option>
+                                                            <option value="Denmark">Denmark</option>
+                                                            <option value="Egypt">Egypt</option>
+                                                            <option value="Finland">Finland</option>
+                                                            <option value="France">France</option>
+                                                            <option value="Germany">Germany</option>
+                                                            <option value="Greece">Greece</option>
+                                                            <option value="Hong Kong">Hong Kong</option>
+                                                            <option value="India">India</option>
+                                                            <option value="Indonesia">Indonesia</option>
+                                                            <option value="Ireland">Ireland</option>
+                                                            <option value="Israel">Israel</option>
+                                                            <option value="Italy">Italy</option>
+                                                            <option value="Japan">Japan</option>
+                                                            <option value="Kenya">Kenya</option>
+                                                            <option value="Malaysia">Malaysia</option>
+                                                            <option value="Mexico">Mexico</option>
+                                                            <option value="Morocco">Morocco</option>
+                                                            <option value="Netherlands">Netherlands</option>
+                                                            <option value="New Zealand">New Zealand</option>
+                                                            <option value="Nigeria">Nigeria</option>
+                                                            <option value="Norway">Norway</option>
+                                                            <option value="Pakistan">Pakistan</option>
+                                                            <option value="Peru">Peru</option>
+                                                            <option value="Philippines">Philippines</option>
+                                                            <option value="Poland">Poland</option>
+                                                            <option value="Portugal">Portugal</option>
+                                                            <option value="Qatar">Qatar</option>
+                                                            <option value="Saudi Arabia">Saudi Arabia</option>
+                                                            <option value="Singapore">Singapore</option>
+                                                            <option value="South Africa">South Africa</option>
+                                                            <option value="South Korea">South Korea</option>
+                                                            <option value="Spain">Spain</option>
+                                                            <option value="Sri Lanka">Sri Lanka</option>
+                                                            <option value="Sweden">Sweden</option>
+                                                            <option value="Switzerland">Switzerland</option>
+                                                            <option value="Thailand">Thailand</option>
+                                                            <option value="Turkey">Turkey</option>
+                                                            <option value="United Arab Emirates">United Arab Emirates</option>
+                                                            <option value="United Kingdom">United Kingdom</option>
+                                                            <option value="United States">United States</option>
+                                                            <option value="Vietnam">Vietnam</option>
+                                                        </select>
                                                         <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.country"
                                                               x-text="personalInformationError.country"></span>
@@ -988,7 +985,6 @@
                         }
                     }, 100);
                 },
-
                 validateField(field) {
                     if (!this.contactFrom[field] || this.contactFrom[field].trim() === '') {
                         this.personalInformationError[field] = 'This field is required.';
