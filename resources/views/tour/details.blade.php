@@ -109,14 +109,14 @@
                                     </div>
 
                                     <button
-                                        class="text-primary font-semibold hover:underline mt-2"
+                                        class="text-orange-500 font-semibold hover:underline mt-2"
                                         x-show="readMore"
                                         @click="readMore = false">
                                         Read more
                                     </button>
 
                                     <button
-                                        class="text-primary font-semibold hover:underline mt-2"
+                                        class="text-orange-500 font-semibold hover:underline mt-2"
                                         x-show="!readMore"
                                         @click="readMore = true">
                                         View less
@@ -701,7 +701,7 @@
                                                         <div class="text-xs font-semibold text-gray-500 m-0">€<span
                                                                 x-text="totalPassengerPrice"></span></div>
                                                     </div>
-                                                    <template x-for="addition in additionals">
+                                                    <template x-for="addition in additioanls">
                                                         <div class="space-y-1 flex justify-between items-end mb-3"
                                                              x-show="addition.count>0">
                                                             <div class="text-sm font-semibold text-gray-700 m-0">
@@ -803,7 +803,7 @@
                 seletedPassenger: 1,
                 totalPassengerPrice: null,
                 tour: null,
-                additionals: [],
+                additioanls: [],
                 selectedDate: '',
                 selectedTime: '',
                 availableTimes: [
@@ -912,7 +912,7 @@
                 setTour(data) {
                     this.tour = data;
                     data.additional.forEach(extra => {
-                        this.additionals.push({
+                        this.additioanls.push({
                             id: extra.id,
                             title: extra.title,
                             price: extra.price,
@@ -937,7 +937,7 @@
 
                 getTotalPrice() {
                     this.totalPrice = this.totalPassengerPrice;
-                    this.additionals.forEach(extra => {
+                    this.additioanls.forEach(extra => {
                         if (extra.count > 0)
                             this.totalPrice += (extra.price * extra.count);
                     });
@@ -1053,7 +1053,7 @@
                         formData.append('tourTitle', this.tour.title)
                         formData.append('time', this.selectedTime)
                         formData.append('date', this.selectedDate)
-                        formData.append('additionals', JSON.stringify(this.additionals))
+                        formData.append('additionals', JSON.stringify(this.additioanls))
                         formData.append('perPassengerPrice', this.getPerPassengerPrice())
                         formData.append('passengerPrice', this.totalPassengerPrice)
                         formData.append('passenger', this.seletedPassenger)
