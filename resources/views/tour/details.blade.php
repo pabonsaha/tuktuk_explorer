@@ -116,7 +116,7 @@
                                     </button>
 
                                     <button
-                                        class="bg-orange-500 font-semibold hover:underline mt-2"
+                                        class="text-orange-500 font-semibold hover:underline mt-2"
                                         x-show="!readMore"
                                         @click="readMore = true">
                                         View less
@@ -640,7 +640,8 @@
                                                             <option value="Switzerland">Switzerland</option>
                                                             <option value="Thailand">Thailand</option>
                                                             <option value="Turkey">Turkey</option>
-                                                            <option value="United Arab Emirates">United Arab Emirates</option>
+                                                            <option value="United Arab Emirates">United Arab Emirates
+                                                            </option>
                                                             <option value="United Kingdom">United Kingdom</option>
                                                             <option value="United States">United States</option>
                                                             <option value="Vietnam">Vietnam</option>
