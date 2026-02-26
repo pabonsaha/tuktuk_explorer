@@ -109,14 +109,14 @@
                                     </div>
 
                                     <button
-                                        class="text-orange-500 font-semibold hover:underline mt-2"
+                                        class="text-primary font-semibold hover:underline mt-2"
                                         x-show="readMore"
                                         @click="readMore = false">
                                         Read more
                                     </button>
 
                                     <button
-                                        class="text-orange-500 font-semibold hover:underline mt-2"
+                                        class="text-primary font-semibold hover:underline mt-2"
                                         x-show="!readMore"
                                         @click="readMore = true">
                                         View less
