@@ -109,14 +109,14 @@
                                     </div>
 
                                     <button
-                                        class="text-orange-500 font-semibold hover:underline mt-2"
+                                        class="text-primary font-semibold hover:underline mt-2"
                                         x-show="readMore"
                                         @click="readMore = false">
                                         Read more
                                     </button>
 
                                     <button
-                                        class="text-orange-500 font-semibold hover:underline mt-2"
+                                        class="text-primary font-semibold hover:underline mt-2"
                                         x-show="!readMore"
                                         @click="readMore = true">
                                         View less
@@ -170,7 +170,7 @@
                                 <ul class="space-y-3">
                                     @foreach(json_decode($tour->tour_highlights) as $highLight)
                                         <li class="flex items-start gap-3">
-                                            <svg class="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" fill="none"
+                                            <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none"
                                                  stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                       d="M5 13l4 4L19 7"></path>
@@ -259,7 +259,7 @@
 
                                                 <div
                                                     class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                                                    <svg class="w-6 h-6 text-orange-500" fill="none"
+                                                    <svg class="w-6 h-6 text-primary" fill="none"
                                                          stroke="currentColor"
                                                          viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -538,7 +538,7 @@
                                                     <!-- Full Name -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Full name <span class="text-orange-500">*</span>
+                                                            Full name <span class="text-primary">*</span>
                                                         </label>
                                                         <input
                                                             type="text"
@@ -547,7 +547,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter first name"
                                                         />
-                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-primary mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.fullName"
                                                               x-text="personalInformationError.fullName"></span>
                                                     </div>
@@ -556,7 +556,7 @@
                                                     <!-- Email -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Email <span class="text-orange-500">*</span>
+                                                            Email <span class="text-primary">*</span>
                                                         </label>
                                                         <input
                                                             type="email"
@@ -565,7 +565,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="someone@example.com"
                                                         />
-                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-primary mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.email"
                                                               x-text="personalInformationError.email"></span>
                                                     </div>
@@ -573,7 +573,7 @@
                                                     <!-- Phone -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Mobile phone <span class="text-orange-500">*</span>
+                                                            Mobile phone <span class="text-primary">*</span>
                                                         </label>
                                                         <input
                                                             type="tel"
@@ -583,7 +583,7 @@
                                                             class="w-full border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 transition duration-150 focus:ring-2 focus:outline-none"
                                                             placeholder="Enter phone number"
                                                         />
-                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-primary mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.phone"
                                                               x-text="personalInformationError.phone"></span>
                                                     </div>
@@ -591,7 +591,7 @@
                                                     <!-- Country -->
                                                     <div>
                                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Country <span class="text-orange-500">*</span>
+                                                            Country <span class="text-primary">*</span>
                                                         </label>
                                                         <select
                                                             x-model="contactFrom.country"
@@ -654,7 +654,7 @@
                                                             <option value="Vietnam">Vietnam</option>
                                                             <option value="Other">Other</option>
                                                         </select>
-                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-primary mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.country"
                                                               x-text="personalInformationError.country"></span>
                                                     </div>
@@ -669,7 +669,7 @@
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">booking terms</a> <span
-                                                                    class="text-orange-500">*</span>
+                                                                    class="text-primary">*</span>
                         </span>
                                                         </label>
                                                         <span class="text-sm bg-orange-600 mt-1 block min-h-[20px]"
@@ -684,10 +684,10 @@
                                                             />
                                                             <span class="text-sm text-gray-700 select-none">
                             I agree to the <a class="text-blue-600 hover:text-blue-700 underline font-medium" href="#">cancellation terms</a> <span
-                                                                    class="text-orange-500">*</span>
+                                                                    class="text-primary">*</span>
                         </span>
                                                         </label>
-                                                        <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
+                                                        <span class="text-sm text-primary mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.termsCancellation"
                                                               x-text="personalInformationError.termsCancellation"></span>
                                                     </div>
