@@ -339,37 +339,40 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Add-ons List -->
-                                                <div class="space-y-2 bg-gray-50 p-5 rounded-xl border border-gray-100">
+                                                @if(!empty($tour->additional) && $tour->additional->count())
+                                                    <!-- Add-ons List -->
+                                                    <div
+                                                        class="space-y-2 bg-gray-50 p-5 rounded-xl border border-gray-100">
 
-                                                    <template x-for="addition in additioanls">
-                                                        <div
-                                                            class="bg-white border rounded-xl p-4 flex items-center justify-between shadow-sm">
-                                                            <div>
-                                                                <p class="font-semibold text-sm text-gray-800"
-                                                                   x-text="addition.title"></p>
-                                                                <p class="text-xs text-gray-500 mt-0.5">from
-                                                                    €<span x-text="addition.price"></span></p>
+                                                        <template x-for="addition in additional">
+                                                            <div
+                                                                class="bg-white border rounded-xl p-4 flex items-center justify-between shadow-sm">
+                                                                <div>
+                                                                    <p class="font-semibold text-sm text-gray-800"
+                                                                       x-text="addition.title"></p>
+                                                                    <p class="text-xs text-gray-500 mt-0.5">from
+                                                                        €<span x-text="addition.price"></span></p>
+                                                                </div>
+                                                                <div class="flex items-center space-x-3">
+                                                                    <button
+                                                                        @click="if (addition.count>0)addition.count--"
+                                                                        class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
+                                                                        −
+                                                                    </button>
+                                                                    <input
+                                                                        class="text-lg font-semibold w-8 text-center bg-transparent"
+                                                                        disabled
+                                                                        x-model="addition.count">
+                                                                    <button @click="addition.count++"
+                                                                            class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                        +
+                                                                    </button>
+                                                                </div>
                                                             </div>
-                                                            <div class="flex items-center space-x-3">
-                                                                <button
-                                                                    @click="if (addition.count>0)addition.count--"
-                                                                    class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
-                                                                    −
-                                                                </button>
-                                                                <input
-                                                                    class="text-lg font-semibold w-8 text-center bg-transparent"
-                                                                    disabled
-                                                                    x-model="addition.count">
-                                                                <button @click="addition.count++"
-                                                                        class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
-                                                                    +
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </template>
+                                                        </template>
 
-                                                </div>
+                                                    </div>
+                                                @endif
 
                                                 <div class="space-y-2 mt-6">
                                                     <div class="space-y-4">
@@ -698,7 +701,7 @@
                                                         <div class="text-xs font-semibold text-gray-500 m-0">€<span
                                                                 x-text="totalPassengerPrice"></span></div>
                                                     </div>
-                                                    <template x-for="addition in additioanls">
+                                                    <template x-for="addition in additionals">
                                                         <div class="space-y-1 flex justify-between items-end mb-3"
                                                              x-show="addition.count>0">
                                                             <div class="text-sm font-semibold text-gray-700 m-0">
@@ -800,7 +803,7 @@
                 seletedPassenger: 1,
                 totalPassengerPrice: null,
                 tour: null,
-                additioanls: [],
+                additionals: [],
                 selectedDate: '',
                 selectedTime: '',
                 availableTimes: [
@@ -909,7 +912,7 @@
                 setTour(data) {
                     this.tour = data;
                     data.additional.forEach(extra => {
-                        this.additioanls.push({
+                        this.additionals.push({
                             id: extra.id,
                             title: extra.title,
                             price: extra.price,
@@ -934,7 +937,7 @@
 
                 getTotalPrice() {
                     this.totalPrice = this.totalPassengerPrice;
-                    this.additioanls.forEach(extra => {
+                    this.additionals.forEach(extra => {
                         if (extra.count > 0)
                             this.totalPrice += (extra.price * extra.count);
                     });
@@ -1050,7 +1053,7 @@
                         formData.append('tourTitle', this.tour.title)
                         formData.append('time', this.selectedTime)
                         formData.append('date', this.selectedDate)
-                        formData.append('additionals', JSON.stringify(this.additioanls))
+                        formData.append('additionals', JSON.stringify(this.additionals))
                         formData.append('perPassengerPrice', this.getPerPassengerPrice())
                         formData.append('passengerPrice', this.totalPassengerPrice)
                         formData.append('passenger', this.seletedPassenger)
