@@ -333,7 +333,7 @@
                                                             disabled
                                                             x-model="seletedPassenger">
                                                         <button @click="seletedPassenger++"
-                                                                class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                class="bg-primary hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
                                                             +
                                                         </button>
                                                     </div>
@@ -346,9 +346,9 @@
 
                                                         <template x-for="addition in additionals">
                                                             <div
-                                                                class="bg-white border rounded-xl p-4 flex items-center justify-between shadow-sm">
+                                                                class="bg-white border rounded-xl px-4 py-2 flex items-center justify-between shadow-sm">
                                                                 <div>
-                                                                    <p class="font-semibold text-sm text-gray-800"
+                                                                    <p class="font-semibold text-xs text-gray-800"
                                                                        x-text="addition.title"></p>
                                                                     <p class="text-xs text-gray-500 mt-0.5">from
                                                                         €<span x-text="addition.price"></span></p>
@@ -356,7 +356,7 @@
                                                                 <div class="flex items-center space-x-3">
                                                                     <button
                                                                         @click="if (addition.count>0)addition.count--"
-                                                                        class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-8 h-8 flex items-center justify-center text-xl cursor-pointer">
+                                                                        class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-6 h-6 flex items-center justify-center text-xl cursor-pointer">
                                                                         −
                                                                     </button>
                                                                     <input
@@ -364,7 +364,7 @@
                                                                         disabled
                                                                         x-model="addition.count">
                                                                     <button @click="addition.count++"
-                                                                            class="bg-orange-500 hover:bg-orange-600 transition text-white rounded-full w-8 h-8 flex items-center cursor-pointer justify-center text-xl">
+                                                                            class="bg-primary hover:bg-orange-600 transition text-white rounded-full w-6 h-6 flex items-center cursor-pointer justify-center text-xl">
                                                                         +
                                                                     </button>
                                                                 </div>
