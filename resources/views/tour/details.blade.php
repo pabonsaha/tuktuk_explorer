@@ -602,6 +602,7 @@
                                                             <option value="Argentina">Argentina</option>
                                                             <option value="Australia">Australia</option>
                                                             <option value="Austria">Austria</option>
+                                                            <option value="Belgium">Bangladesh</option>
                                                             <option value="Belgium">Belgium</option>
                                                             <option value="Brazil">Brazil</option>
                                                             <option value="Canada">Canada</option>
@@ -651,6 +652,7 @@
                                                             <option value="United Kingdom">United Kingdom</option>
                                                             <option value="United States">United States</option>
                                                             <option value="Vietnam">Vietnam</option>
+                                                            <option value="Other">Other</option>
                                                         </select>
                                                         <span class="text-sm text-orange-500 mt-1 block min-h-[20px]"
                                                               x-show="personalInformationError.country"
