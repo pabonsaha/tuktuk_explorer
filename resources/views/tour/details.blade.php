@@ -1071,8 +1071,8 @@
                         formData.append('hour', JSON.stringify(this.selectedhour))
 
                         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                        let route = type === 'stripe' ? {{route('tour.booking')}} : {{route('tour.bookingWithoutPayment')}};
-                        fetch(route, {
+                        const endpoint = type === 'stripe' ? '{{ route('tour.booking') }}' : '{{ route('tour.bookingWithoutPayment') }}';
+                        fetch(endpoint, {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',

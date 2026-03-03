@@ -39,7 +39,6 @@ Route::name('tour.')->prefix('tour')->group(function () {
 Route::name('pay.')->prefix('pay')->group(function () {
     Route::get('/success', [PaymentController::class, 'successPayment'])->name('success');
     Route::get('/error', [PaymentController::class, 'errorPayment'])->name('error');
-    Route::get('/send-email', [PaymentController::class, 'sendBookingConfirmationEmail'])->name('send-email');
 });
 
 Route::get('/clear-cache', function () {
