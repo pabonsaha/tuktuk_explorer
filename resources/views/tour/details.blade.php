@@ -729,8 +729,17 @@
                                                             ← Back
                                                         </button>
 
+                                                        <button @click="submitPersonalInfoFrom('none')"
+                                                                :disabled="isSubmitting"
+                                                                type="button"
+                                                                class="flex items-center gap-2 w-1/3 justify-around bg-blue-600
+               hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition duration-150 h-[52px]
+               disabled:bg-gray-400 disabled:cursor-not-allowed">
+                                                            Book Now
+                                                        </button>
+
                                                         <!-- Pay Button -->
-                                                        <button @click="submitPersonalInfoFrom()"
+                                                        <button @click="submitPersonalInfoFrom('stripe')"
                                                                 :disabled="isSubmitting"
                                                                 type="button"
                                                                 class="flex items-center gap-2 w-2/3 justify-around bg-green-600
@@ -1044,7 +1053,7 @@
                     }
                 },
 
-                submitPersonalInfoFrom() {
+                submitPersonalInfoFrom(type) {
                     if (this.validateField('fullName') && this.validateEmail() && this.validateField('country') && this.validatePhone('phone') && this.validateAgreement('termsCancellation') && this.validateAgreement('termsBooking')) {
 
                         this.isSubmitting = true;
@@ -1062,8 +1071,8 @@
                         formData.append('hour', JSON.stringify(this.selectedhour))
 
                         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-                        fetch('{{route('pay.stripe')}}', {
+                        let route = type === 'stipe' ? {{route('pay.stripe')}} : {{route('tour.bookingWithoutPayment')}};
+                        fetch(route, {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',

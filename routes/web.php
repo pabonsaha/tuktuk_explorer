@@ -30,11 +30,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::name('tour.')->prefix('tour')->group(function () {
+    Route::post('/book', [TourController::class, 'booking'])->name('booking');
+    Route::post('/bookingWithoutPayment', [TourController::class, 'bookingWithoutPayment'])->name('bookingWithoutPayment');
+    Route::get('/booking-success/{booking}', [TourController::class, 'bookingSuccess'])->name('bookingSuccess');
     Route::get('{slug}', [TourController::class, 'details'])->name('details');
 });
 
 Route::name('pay.')->prefix('pay')->group(function () {
-    Route::post('/stripe', [PaymentController::class, 'payStripe'])->name('stripe');
     Route::get('/success', [PaymentController::class, 'successPayment'])->name('success');
     Route::get('/error', [PaymentController::class, 'errorPayment'])->name('error');
     Route::get('/send-email', [PaymentController::class, 'sendBookingConfirmationEmail'])->name('send-email');
