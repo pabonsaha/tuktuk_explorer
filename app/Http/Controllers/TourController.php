@@ -8,6 +8,7 @@ use App\Models\Tour;
 use App\Service\StripeService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,7 +26,7 @@ class TourController extends Controller
 
             $data = $this->prepareBookingData($request);
             $stripe = new StripeService();
-            $result = $stripe->pay($request->tourTitle, $request->totalPrice, $data);
+            $result = $stripe->pay($request->tourTitle, $request->totalPrice, $data->toArray());
             return response()->json([
                 'success' => true,
                 'redirect_url' => $result,
@@ -75,22 +76,25 @@ class TourController extends Controller
 
     public static function storeBooking($data)
     {
+        $payload = $data instanceof Collection ? $data : collect((array)$data);
+        $contactForm = json_decode((string)$payload->get('contact_form', '{}'), true) ?? [];
+
         $booking = new Booking();
         $booking->code = self::generateBookingId();
-        $booking->title = $data->tour_title;
-        $booking->hour = $data->hour;
-        $booking->passengers = $data->passenger;
-        $booking->additionals = $data->additionals;
-        $booking->tour_date = $data->date;
-        $booking->tour_time = $data->time;
-        $booking->per_pessenger_price = $data->per_pessenger_price;
-        $booking->passenger_price = $data->total_passenger_price;
-        $booking->total_price = $data['amount_total'] ?? $data->total_price;
-        $booking->currency = $data['currency'] ?? null;
-        $booking->customer_name = json_decode($data->contact_form)->fullName;
-        $booking->customer_email = json_decode($data->contact_form)->email;
-        $booking->customer_phone = json_decode($data->contact_form)->phone;
-        $booking->customer_country = json_decode($data->contact_form)->country;
+        $booking->title = $payload->get('tour_title');
+        $booking->hour = $payload->get('hour');
+        $booking->passengers = $payload->get('passenger');
+        $booking->additionals = $payload->get('additionals');
+        $booking->tour_date = $payload->get('date');
+        $booking->tour_time = $payload->get('time');
+        $booking->per_pessenger_price = $payload->get('per_pessenger_price');
+        $booking->passenger_price = $payload->get('total_passenger_price');
+        $booking->total_price = $payload->get('amount_total', $payload->get('total_price'));
+        $booking->currency = $payload->get('currency');
+        $booking->customer_name = $contactForm['fullName'] ?? null;
+        $booking->customer_email = $contactForm['email'] ?? null;
+        $booking->customer_phone = $contactForm['phone'] ?? null;
+        $booking->customer_country = $contactForm['country'] ?? null;
         $booking->active_status = 1;
         $booking->tour_status = 1;
         $booking->save();
@@ -98,9 +102,9 @@ class TourController extends Controller
         return $booking;
     }
 
-    public function prepareBookingData($request)
+    public function prepareBookingData($request): Collection
     {
-        $metadata = [
+        $metadata = collect([
             'tour_title' => $request->tourTitle,
             'total_price' => $request->totalPrice,
             'per_pessenger_price' => $request->perPassengerPrice,
@@ -110,7 +114,7 @@ class TourController extends Controller
             'passenger' => $request->passenger,
             'hour' => optional(json_decode($request->hour))->title,
             'contact_form' => $request->contact_form,
-        ];
+        ]);
 
         $additionals = collect(json_decode($request->additionals))
             ->filter(fn($item) => $item->count > 0)
@@ -122,7 +126,7 @@ class TourController extends Controller
             ->values()
             ->toArray();
 
-        $metadata['additionals'] = json_encode($additionals);
+        $metadata->put('additionals', json_encode($additionals));
 
         return $metadata;
     }
