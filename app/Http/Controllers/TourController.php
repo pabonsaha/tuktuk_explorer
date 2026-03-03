@@ -59,7 +59,6 @@ class TourController extends Controller
         } catch (Exception $e) {
             if ($request->expectsJson()) {
                 return response()->json([
-                    'exception' => $e->getMessage(),
                     'success' => false,
                     'message' => 'Something went wrong, Please contact with authority'
                 ], 500);
