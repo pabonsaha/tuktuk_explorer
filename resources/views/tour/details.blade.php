@@ -318,7 +318,7 @@
                                                     class="flex items-center justify-between rounded-xl my-5 p-4 bg-white border shadow-sm">
                                                     <div>
                                                         <p class="font-semibold">Passenger</p>
-                                                        <p class="text-xs text-gray-500 text-sm">from €<span
+                                                        <p class="text-xs text-gray-500 text-sm">€<span
                                                                 x-text="selectedhour?.price?getPerPassengerPrice():{{$tour->starting_price}}"></span> per person
                                                         </p>
                                                     </div>
@@ -348,7 +348,7 @@
                                                             <div
                                                                 class="bg-white border rounded-xl px-4 py-2 flex items-center justify-between shadow-sm">
                                                                 <div>
-                                                                    <p class="font-semibold text-xs text-orange-800"
+                                                                    <p class="font-semibold text-xs text-gray-800"
                                                                        x-text="addition.title"></p>
                                                                    
                                                                 </div>
@@ -690,7 +690,7 @@
                                                     </div>
                                                     <template x-for="addition in additionals">
                                                         
-                                                            <div class="text-sm font-semibold text-orange-700 m-0">
+                                                            <div class="text-sm font-semibold text-gray-700 m-0">
                                                                 <p x-text="addition.title"></p>
 
                                                             
