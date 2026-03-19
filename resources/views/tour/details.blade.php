@@ -318,7 +318,9 @@
                                                     class="flex items-center justify-between rounded-xl my-5 p-4 bg-white border shadow-sm">
                                                     <div>
                                                         <p class="font-semibold">Passenger</p>
-                                                       
+                                                        <p class="text-xs text-gray-500 text-sm">from €<span
+                                                                x-text="selectedhour?.price?getPerPassengerPrice():{{$tour->starting_price}}"></span>
+                                                        </p>
                                                     </div>
                                                     <div class="flex items-center space-x-3">
                                                         <button @click="if (seletedPassenger>1)seletedPassenger--"
