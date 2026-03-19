@@ -8,7 +8,7 @@
 </url>
 
 <url>
-    <loc>{{ $baseUrl }}/explore</loc>
+    <loc>{{ $baseUrl }}/about</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
 </url>
