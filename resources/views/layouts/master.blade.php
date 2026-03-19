@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="pPCzw-4PQAHZzZwZ7bRimIBxHvbt_Q1TcTGZoskt0t0" />
+    <meta name="google-site-verification" content="pPCzw-4PQAHZzZwZ7bRimIBxHvbt_Q1TcTGZoskt0t0" /> <!-- google site varification, never remove -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('logo/favicon.ico') }}">
