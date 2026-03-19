@@ -348,7 +348,7 @@
                                                             <div
                                                                 class="bg-white border rounded-xl px-4 py-2 flex items-center justify-between shadow-sm">
                                                                 <div>
-                                                                    <p class="font-semibold text-xs text-gray-800"
+                                                                    <p class="font-bold text-xs text-orange-800"
                                                                        x-text="addition.title"></p>
                                                                    
                                                                 </div>
