@@ -691,7 +691,7 @@
                                                     <template x-for="addition in additionals">
                                                         
                                                             <div class="text-sm font-semibold text-gray-700 m-0">
-                                                                <p x-text="addition.title text-orange-700"></p>
+                                                                <p x-text="addition.title"></p>
 
                                                             
                                                             </div>
