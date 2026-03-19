@@ -53,4 +53,6 @@ Route::get('/clear-cache', function () {
 });
 
 
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
+
 require __DIR__ . '/auth.php';
