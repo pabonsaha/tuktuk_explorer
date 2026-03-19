@@ -350,24 +350,9 @@
                                                                 <div>
                                                                     <p class="font-semibold text-xs text-gray-800"
                                                                        x-text="addition.title"></p>
-                                                                    <p class="text-xs text-gray-500 mt-0.5">from
-                                                                        €<span x-text="addition.price"></span></p>
+                                                                   
                                                                 </div>
-                                                                <div class="flex items-center space-x-3">
-                                                                    <button
-                                                                        @click="if (addition.count>0)addition.count--"
-                                                                        class="bg-gray-100 hover:bg-gray-200 transition rounded-full w-6 h-6 flex items-center justify-center text-xl cursor-pointer">
-                                                                        −
-                                                                    </button>
-                                                                    <input
-                                                                        class="text-lg font-semibold w-8 text-center bg-transparent"
-                                                                        disabled
-                                                                        x-model="addition.count">
-                                                                    <button @click="addition.count++"
-                                                                            class="bg-primary hover:bg-orange-600 transition text-white rounded-full w-6 h-6 flex items-center cursor-pointer justify-center text-xl">
-                                                                        +
-                                                                    </button>
-                                                                </div>
+                                                               
                                                             </div>
                                                         </template>
 
@@ -704,17 +689,13 @@
                                                                 x-text="totalPassengerPrice"></span></div>
                                                     </div>
                                                     <template x-for="addition in additionals">
-                                                        <div class="space-y-1 flex justify-between items-end mb-3"
-                                                             x-show="addition.count>0">
+                                                        
                                                             <div class="text-sm font-semibold text-gray-700 m-0">
                                                                 <p x-text="addition.title"></p>
 
-                                                                <div class="text-xs text-gray-500"><span
-                                                                        x-text="addition.count"></span>*€<span
-                                                                        x-text="addition.price"></span></div>
+                                                            
                                                             </div>
-                                                            <div class="text-xs font-semibold text-gray-500 m-0">€<span
-                                                                    x-text="addition.count*addition.price"></span></div>
+                                                            
                                                         </div>
 
                                                     </template>
