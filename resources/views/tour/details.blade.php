@@ -319,7 +319,7 @@
                                                     <div>
                                                         <p class="font-semibold">Passenger</p>
                                                         <p class="text-xs text-gray-500 text-sm">from €<span
-                                                                x-text="selectedhour?.price?getPerPassengerPrice():{{$tour->starting_price}}"> per passenger</span>
+                                                                x-text="selectedhour?.price?getPerPassengerPrice():{{$tour->starting_price}}"></span> per passenger
                                                         </p>
                                                     </div>
                                                     <div class="flex items-center space-x-3">
