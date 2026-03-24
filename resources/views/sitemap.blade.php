@@ -15,7 +15,7 @@
 
 @foreach ($tours as $slug)
 <url>
-    <loc>{{ $baseUrl }}/place/{{ $slug }}</loc>
+    <loc>{{ $baseUrl }}/tour/{{ $slug }}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
 </url>
