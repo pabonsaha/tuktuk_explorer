@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', $tour->title)
 @push('styles')
     <style>
         .gallery-main {
@@ -14,7 +15,6 @@
     </style>
 @endpush
 {{--@dd($tour)--}}
-@section('title', $tour->title)
 @section('content')
 
     <div class="bg-gray-40 mt-16">

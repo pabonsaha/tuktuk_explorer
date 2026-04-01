@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('logo/favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo/apple-touch-icon.png') }}">
-    <title>@yield('title', 'Lisbon TukTuk Explorer')</title>
+    <title>@yield('title' - Lisbon TukTuk Explorer)</title>
 
 
     <meta name="description"
@@ -60,7 +60,6 @@
 <body class="font-sans">
 <!-- Header -->
 @include('layouts.header')
-@yield('title')
 
 @yield('content')
 
