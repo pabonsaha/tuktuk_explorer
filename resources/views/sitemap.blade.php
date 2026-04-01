@@ -10,14 +10,14 @@
 <url>
     <loc>{{ $baseUrl }}/about</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
 </url>
 
 @foreach ($tours as $slug)
 <url>
     <loc>{{ $baseUrl }}/tour/{{ $slug }}</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
 </url>
 @endforeach
 
