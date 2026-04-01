@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'About Us | Private Tours in Lisbon')
+@section('title', '| About Us')
 
 
 @section('content')

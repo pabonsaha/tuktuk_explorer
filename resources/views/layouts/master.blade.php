@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('logo/favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo/apple-touch-icon.png') }}">
-    <title>Lisbon TukTuk Explorer | @yield('title') | Guided Tuk Tuk Tours in Lisbon</title>
+    <title>Lisbon TukTuk Explorer @yield('title') | Guided Tuk Tuk Tours in Lisbon</title>
 
 
     <meta name="description"
