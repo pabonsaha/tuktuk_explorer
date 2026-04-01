@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+@section('title', 'Lisbon TukTuk Explorer | Guided Tuk Tuk Tours in Lisbon')
 
 
 @push('styles')
@@ -36,7 +37,6 @@
         }
     </style>
 @endpush
-@section('title', 'Lisbon TukTuk Explorer | Guided Tuk Tuk Tours in Lisbon')
 
 @section('content')
     <section class="banner-slider h-[50vh] md:h-screen relative"
