@@ -14,7 +14,7 @@
     </style>
 @endpush
 {{--@dd($tour)--}}
-@section('title', $tours->title)
+@section('title', $tour->title)
 @section('content')
 
     <div class="bg-gray-40 mt-16">
