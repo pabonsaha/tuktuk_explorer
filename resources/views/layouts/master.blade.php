@@ -60,6 +60,7 @@
 <body class="font-sans">
 <!-- Header -->
 @include('layouts.header')
+@yield('title')
 
 @yield('content')
 
