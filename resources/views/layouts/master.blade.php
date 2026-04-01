@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{{ asset('logo/favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo/apple-touch-icon.png') }}">
-    <title>Lisbon Tuk Tuk Explorer | Guided Tuk Tuk Tours in Lisbon</title>
+    <title>@yield('title', 'Lisbon TukTuk Explorer')</title>
+
 
     <meta name="description"
           content="Discover Lisbon’s hidden gems with Tuk Tuk tours led by expert local guides. Explore the charm, history, and culture of Portugal’s capital in a unique and memorable way. Book your unforgettable Lisbon experience today.">

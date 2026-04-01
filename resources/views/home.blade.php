@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title', 'Lisbon TukTuk Explorer | Guided Tuk Tuk Tours in Lisbon')
+
+
 
 @push('styles')
     <style>

@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', $tour->name)
 @push('styles')
     <style>
         .gallery-main {
