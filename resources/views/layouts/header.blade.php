@@ -11,7 +11,7 @@
             </div>
             <div class="flex items-center gap-4">
                 <a href="{{route('about')}}" class=" bg-primary px-6 py-2 rounded-full transition text-white">
-                   About Me
+                   About Us
                 </a>
             </div>
         </div>
