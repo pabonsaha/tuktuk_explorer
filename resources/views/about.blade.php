@@ -30,7 +30,7 @@
             <div class="space-y-6 slide-in">
                 <div>
                     <p class="text-indigo-600 font-semibold text-sm uppercase tracking-wider mb-2">Your Local Expert</p>
-                    <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">About Me</h1>
+                    <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">About Us</h1>
                 </div>
 
                 <p class="text-gray-700 leading-relaxed text-lg">
