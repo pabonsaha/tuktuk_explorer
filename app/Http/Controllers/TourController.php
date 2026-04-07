@@ -89,7 +89,7 @@ class TourController extends Controller
         $booking->per_pessenger_price = $payload->get('per_pessenger_price');
         $booking->passenger_price = $payload->get('total_passenger_price');
         $booking->total_price = $payload->get('amount_total', $payload->get('total_price'));
-        $booking->currency = $payload->get('currency');
+        $booking->currency = $payload->get('currency') ?? '€';
         $booking->customer_name = $contactForm['fullName'] ?? null;
         $booking->customer_email = $contactForm['email'] ?? null;
         $booking->customer_phone = $contactForm['phone'] ?? null;
