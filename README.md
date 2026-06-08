@@ -1,4 +1,4 @@
-````md
+
 <div align="center">
 
 <img src="https://lisbontuktukexplorer.com/logo/logo.ico" alt="Lisbon Tuk Tuk Explorer Logo" width="80"/>
