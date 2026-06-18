@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('getFilePath')) {
-    function getFilePath($path)
+    function getFilePath($path, $placeholder = '/assets/img/placeholder/placeholder.png')
     {
         if ($path && Storage::exists($path)) {
             return asset('storage/' . $path);
         }
-        return asset('/assets/img/placeholder/placeholder.png');
+        return asset($placeholder);
     }
 }
 
